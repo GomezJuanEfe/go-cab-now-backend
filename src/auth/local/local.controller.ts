@@ -30,8 +30,8 @@ export async function loginHandler(req: Request, res: Response){
     const token = signToken(payload)
 
     const profile = {
-      firstName: user.firstName,
-      lastName: user.lastName,
+      firstName: user.first_name,
+      lastName: user.last_name,
       email: user.email,
       avatar: user.avatar,
     }
