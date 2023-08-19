@@ -5,7 +5,7 @@ import routes from './routes'
 
 
 const app = express()
-const port = 8080
+const port = process.env.PORT || 8080
 
 //Setup Express
 configExpress(app)
@@ -14,5 +14,5 @@ configExpress(app)
 routes(app)
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+  console.log(`Go Cab Now backend listening on port ${port}`)
 })

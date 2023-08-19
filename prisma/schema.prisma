@@ -24,6 +24,7 @@ model User {
   is_active  Boolean  @default(true)
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+  Trips      Trips[]
 }
 
 model Cars {
@@ -40,8 +41,36 @@ model Cars {
   driver          User         @relation(fields: [driver_id], references: [id])
   created_at      DateTime     @default(now())
   updated_at      DateTime     @updatedAt
+  Trips           Trips[]
 }
 
+model Trips {
+  id                    String     @id @default(cuid())
+  user_id               String
+  user                  User       @relation(fields: [user_id], references: [id])
+  car_id                String
+  car                   Cars       @relation(fields: [car_id], references: [id])
+  total                 Int?
+  date                  DateTime?
+  status                TripStatus @default(UPCOMING)
+  origin_latitude       Int?
+  destination_latitude  Int?
+  origin_longitude      Int?
+  destination_longitude Int?
+  distance_km           Int?
+  Payments              Payments?
+}
+
+// Payments - Trips: relación 1-1. En el momento de aplicar cupones, relación: 1 - n
+model Payments {
+  id      String @id @default(cuid())
+  method  String
+  amount  Int
+  trip_id String @unique
+  trip    Trips  @relation(fields: [trip_id], references: [id])
+}
+
+// Cambiar por tabla relacion 1 - 1
 enum Role {
   USER
   DRIVER
@@ -51,4 +80,10 @@ enum Role {
 enum Transmition {
   AUTOMATIC
   MANUAL
+}
+
+enum TripStatus {
+  UPCOMING
+  PAST
+  CANCELLED
 }

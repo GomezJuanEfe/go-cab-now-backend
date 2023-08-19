@@ -12,18 +12,18 @@ import { isAuthenticated } from '../../auth/auth.controller';
 const router = Router();
 
 // /api/users -> GET
-router.get('/', getAllUserHandler);
+router.get('/', isAuthenticated, getAllUserHandler);
 
 // /api/users -> POST
 router.post('/', createUserHandler);
 
-// /api/users/:id -> GET
-router.get('/:id', getUserHandler);
+// /api/users/single -> GET
+router.get('/single', isAuthenticated, getUserHandler);
 
-// /api/users/:id -> DELETE
+// /api/users -> DELETE
 router.delete('/', isAuthenticated, deleteUserHandler);
 
-// /api/users/:id -> PATCH
-router.patch('/:id', updateUserHandler);
+// /api/users/single -> PATCH
+router.patch('/single', isAuthenticated, updateUserHandler);
 
 export default router;

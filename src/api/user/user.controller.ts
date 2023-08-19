@@ -5,11 +5,12 @@ import {
   deleteUser,
   getAllUser,
   getUserById,
+  updateUser,
 } from './user.service';
 import { AuthRequest } from '../../auth/auth.types';
 import { User } from './user.types';
 
-export async function getAllUserHandler(req: Request, res: Response) {
+export async function getAllUserHandler(req: AuthRequest, res: Response) {
   const users = await getAllUser();
 
   return res.json(users);
@@ -23,8 +24,8 @@ export async function createUserHandler(req: Request, res: Response) {
   return res.json(user);
 }
 
-export async function getUserHandler(req: Request, res: Response) {
-  const { id } = req.params;
+export async function getUserHandler(req: AuthRequest, res: Response) {
+  const { id } = req.user as User;
 
   const user = await getUserById(id);
 
@@ -53,4 +54,21 @@ export async function deleteUserHandler(req: AuthRequest, res: Response) {
   return res.json(user);
 }
 
-export async function updateUserHandler(req: Request, res: Response) {}
+export async function updateUserHandler(req: AuthRequest, res: Response) {
+  const { id } = req.user as User;
+
+  const user = await getUserById(id);
+
+  if (!user) {
+    return res.status(404).json({
+      message: 'User not found',
+    });
+  }
+
+  const userUpdated = await updateUser(req.body, user.id);
+
+  return res.json({
+    message: "Information updated sucessfully",
+    data: userUpdated
+  });
+}
