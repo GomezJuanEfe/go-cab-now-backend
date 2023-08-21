@@ -1,5 +1,4 @@
 import { Request, Response } from 'express';
-import jwt from 'jsonwebtoken';
 
 import { getUserByEmail } from '../../api/user/user.service';
 import { comparePassword } from '../utils/bcrypt';
@@ -34,6 +33,7 @@ export async function loginHandler(req: Request, res: Response){
       lastName: user.last_name,
       email: user.email,
       avatar: user.avatar,
+      role: user.role,
     }
 
     return res.status(200).json({ token, profile })

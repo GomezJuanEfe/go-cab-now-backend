@@ -10,6 +10,6 @@ route.post('/login', loginHandler)
 //change password
 //reset password
 //active account
-//louout
+//lougout
 
 export default route

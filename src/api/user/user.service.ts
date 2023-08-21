@@ -6,7 +6,22 @@ import { User } from './user.types';
 const prisma = new PrismaClient();
 
 export async function getAllUser() {
-  const users = await prisma.user.findMany();
+  // PREGUNTA - Juan: En el panel del ADMIN, cómo debería gestionar la petición de un usuario específico, por email? qué tipo de petición?
+  const users = await prisma.user.findMany({
+    select: {
+      email: true,
+      first_name: true,
+      last_name: true,
+      role: true,
+      address: true,
+      phone: true,
+      avatar: true,
+      car: true,
+      is_active: true,
+      created_at: true,
+      updated_at: true,
+    }
+  });
   return users;
 }
 
@@ -56,10 +71,16 @@ export async function deleteUser(id: string) {
   return user;
 }
 
-export async function updateUser(data: User) {
+export async function updateUser(data: any, id: string) {
+  // PREGUNTA-Juan: El argumento data está como any. Cómo se puede tipar correctamente este dato?
+  const password = data.password;
+  if (password) {
+    const hashedPassword = await hashPassword(password);
+    data.password = hashedPassword;
+  }
   const user = await prisma.user.update({
     where: {
-      id: data.id,
+      id: id,
     },
     data,
   });
