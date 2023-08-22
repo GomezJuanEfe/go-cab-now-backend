@@ -36,7 +36,9 @@ export async function loginHandler(req: Request, res: Response){
       role: user.role,
     }
 
-    return res.status(200).json({ token, profile })
+    return res.status(200).json({ token, profile });
 
-  } catch(error) {}
+  } catch({ message }: any) {
+    res.status(400).json({ message })
+  }
 }
