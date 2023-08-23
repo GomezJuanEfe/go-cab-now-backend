@@ -31,3 +31,45 @@ export const createCar = async (input: Cars) => {
 
   return car
 }
+
+export const getCarById =async (id: string) => {
+  const cars = await prisma.cars.findUnique ({
+    where: {
+      id,
+    },
+  });
+
+  return cars;
+}
+
+export const getCarByDriverId =async (driver_id: string) => {
+  const car = await prisma.cars.findUnique ({
+    where: {
+      driver_id,
+    },
+  });
+
+  return car;
+}
+
+export async function deleteCar (id: string) {
+  const car = await prisma.cars.delete({
+    where: {
+      id,
+    },
+  });
+
+  return car;
+}
+
+export async function updateCar ( data: any, id: string) {
+  const car = await prisma.cars.update({
+    where: {
+      id,
+    },
+    data
+  });
+
+  return car;
+}
+
