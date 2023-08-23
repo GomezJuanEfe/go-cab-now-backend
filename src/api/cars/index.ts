@@ -18,7 +18,7 @@ router.post('/', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), createCarHandler
 // /api/cars -> GET
 router.get('/', getAllCarsHandler)
 
-// /api/users/single -> GET
+// /api/cars/single -> GET
 router.get('/single', isAuthenticated, getCarHandler);
 
 // UPDATE
