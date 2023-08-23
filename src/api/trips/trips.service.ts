@@ -30,3 +30,20 @@ export async function getAllTrips() {
   });
   return users;
 }
+
+export async function getTripsByUserId(user_id: string) {
+  const trips = await prisma.trips.findMany({
+    where: {
+      user_id,
+    }, 
+    include: {
+      user: true,
+      car: {
+        include: {
+          driver: true,
+        }
+      }
+    }
+  });
+  return trips;
+}

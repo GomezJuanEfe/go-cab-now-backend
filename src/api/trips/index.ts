@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { isAuthenticated, hasRole } from '../../auth/auth.controller';
 import { createTripHandler } from './trips.controller';
 import { getAllTripsHandler } from './trips.controller';
+import { getTripsByUserIdHandler } from './trips.controller';
 
 const router = Router();
 
@@ -15,7 +16,7 @@ router.post('/', isAuthenticated, createTripHandler);
 router.get('/', isAuthenticated, hasRole(['ADMIN']), getAllTripsHandler);
 
 // /api/trips/single -> GET
-//router.get('/single', isAuthenticated, getTripsByUserIdHandler);
+router.get('/single', isAuthenticated, getTripsByUserIdHandler);
 
 // UPDATE
 // /api/trip/single -> PATCH

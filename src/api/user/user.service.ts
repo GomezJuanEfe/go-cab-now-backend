@@ -47,7 +47,6 @@ export async function getUserById(id: string) {
       id,
     },
   });
-
   return user;
 }
 

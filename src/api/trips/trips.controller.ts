@@ -3,6 +3,8 @@ import { createTrip } from './trips.service';
 import { AuthRequest } from '../../auth/auth.types';
 import { User } from '@prisma/client';
 import { getAllTrips } from './trips.service';
+import { getTripsByUserId } from './trips.service';
+import { UserWithTrips } from '../user/user.types';
 
 //import { AuthRequest } from '../../auth/auth.types';
 //import { User } from '../user/user.types';
@@ -28,18 +30,20 @@ export async function getAllTripsHandler(req: Request, res: Response) {
   return res.json(trips);
 }
 
-/* export async function getTripsByUserIdHandler(req: AuthRequest, res: Response) {
+export async function getTripsByUserIdHandler(req: AuthRequest, res: Response) {
+  console.log('hola mundo');
+  
   const { id } = req.user as User;
 
-  const user = await getUserById(id);
+  const trips = await getTripsByUserId(id);
 
-  if (!user) {
+  if (!trips) {
     return res.status(404).json({
-      message: 'User not found',
+      message: 'No trips',
     });
   }
 
-  const trips = user.Trips
-
-  return res.json(user);
-} */
+ console.log(trips);
+ 
+  return res.json(trips);
+}
