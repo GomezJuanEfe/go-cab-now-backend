@@ -13,23 +13,27 @@ export const isAuthenticated = async (
   res: Response, 
   next: NextFunction
 ) => {
-  const token = req.headers?.authorization?.split(' ')[1];
+  try {
+    const token = req.headers?.authorization?.split(' ')[1];
+    
+    if(!token) {
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+    // Verify token
+    const decoded = verifyToken(token)
   
-  if(!token) {
-    return res.status(401).json({ message: 'Unauthorized' });
+    if(!decoded){
+      return res.status(401).json({ message: 'Unauthorized' });
+    }
+  
+    const user = await getUserByEmail(decoded.email) as User
+  
+    req.user = user
+  
+    return next();
+  } catch ({ message }: any) {
+    res.status(400).json({ message });
   }
-  // Verify token
-  const decoded = verifyToken(token)
-
-  if(!decoded){
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-
-  const user = await getUserByEmail(decoded.email) as User
-
-  req.user = user
-
-  return next();
 }
 
 export const hasRole = (rolesAllowed: string[]) => {
