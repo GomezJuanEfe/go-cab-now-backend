@@ -16,7 +16,7 @@ export const getAllCarsHandler = async (_: Request, res: Response) => {
  try {
     const cars = await getAllCars()
 
-    res.status(200).json({ message: "Cars have been found successfully" , cars})
+    res.status(201).json({ message: "Cars have been found successfully" , cars})
 
   } catch ({ message}: any ) {
     res.status(400).json({ message: "Cars not found" });
@@ -50,7 +50,8 @@ export async function getCarHandler(req: Request, res: Response) {
       updated_at: car.updated_at
     }
 
-    res.json({message: "Car have been found successfully", car});
+    res.status(201).json({message: "Car have been found successfully", car});
+    
   } catch ({ message }: any) {
     res.status(400).json({ message: "Car not found" });
   }  
@@ -84,7 +85,8 @@ export async function deleteCarHandler(req: AuthRequest, res:Response){
     
     await deleteCar(car.id);
     
-    res.json({message:"Car deleted successufully", data: car})
+    res.status(201).json({message:"Car deleted successufully", data: car})
+
   } catch ({message }: any) {
     res.status(400).json({ message });
   }
@@ -118,7 +120,7 @@ export async function updateCarHandler(req: AuthRequest, res: Response) {
       updated_at: carUpdated.updated_at
     }
   
-    res.json({message: "Information was updated sucessfully", data});
+    res.status(201).json({message: "Information was updated sucessfully", data});
     
   } catch ({ message }: any) {
     res.status(400).json({ message });
