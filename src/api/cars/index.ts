@@ -30,4 +30,4 @@ router.patch('/', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), updateCarHandle
 // /api/cars -> DELETE
 router.delete('/', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), deleteCarHandler);
 
-export default router
+export default router;

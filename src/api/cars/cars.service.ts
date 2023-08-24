@@ -4,7 +4,7 @@ import { Cars } from './cars.types'
 
 const prisma = new PrismaClient()
 
-export const getAllCars = async () => {
+export async function getAllCars() {
   try {
     const cars = await prisma.cars.findMany({
       include: {
@@ -23,7 +23,7 @@ export const getAllCars = async () => {
     }
 }
 
-export const createCar = async (input: Cars) => {
+export async function createCar(input: Cars) {
   try { 
     const car = await prisma.cars.create({
       data: {
@@ -40,7 +40,7 @@ export const createCar = async (input: Cars) => {
     }  
 }
 
-export const getCarById =async (id: string) => {
+export async function getCarById(id: string) {
   try {
     const cars = await prisma.cars.findUnique ({
       where: {
@@ -54,7 +54,7 @@ export const getCarById =async (id: string) => {
     }  
 }
 
-export const getCarByDriverId =async (driver_id: string) => {
+export async function getCarByDriverId(driver_id: string) {
   try {
     const car = await prisma.cars.findUnique ({
       where: {
