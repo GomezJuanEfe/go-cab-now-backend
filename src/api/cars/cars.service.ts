@@ -19,12 +19,12 @@ export async function getAllCars() {
     });
     return cars;
   } catch (error: any) {
-      throw error;
-    }
+    throw error;
+  }
 }
 
 export async function createCar(input: Cars) {
-  try { 
+  try {
     const car = await prisma.cars.create({
       data: {
         car_name: input.car_name,
@@ -35,14 +35,14 @@ export async function createCar(input: Cars) {
 
     return car;
 
-  } catch(error: any) {
-      throw error;
-    }  
+  } catch (error: any) {
+    throw error;
+  }
 }
 
 export async function getCarById(id: string) {
   try {
-    const cars = await prisma.cars.findUnique ({
+    const cars = await prisma.cars.findUnique({
       where: {
         id,
       },
@@ -50,13 +50,13 @@ export async function getCarById(id: string) {
 
     return cars;
   } catch (error: any) {
-      throw error;
-    }  
+    throw error;
+  }
 }
 
 export async function getCarByDriverId(driver_id: string) {
   try {
-    const car = await prisma.cars.findUnique ({
+    const car = await prisma.cars.findUnique({
       where: {
         driver_id,
       },
@@ -65,12 +65,12 @@ export async function getCarByDriverId(driver_id: string) {
     return car;
 
   } catch (error: any) {
-      throw error;
-    }
+    throw error;
+  }
 }
 
-export async function deleteCar (id: string) {
-  try { 
+export async function deleteCar(id: string) {
+  try {
     const car = await prisma.cars.delete({
       where: {
         id,
@@ -79,12 +79,12 @@ export async function deleteCar (id: string) {
 
     return car;
 
-  } catch (error: any){
-      throw error; 
-    }
+  } catch (error: any) {
+    throw error;
+  }
 }
 
-export async function updateCar ( data: any, id: string) {
+export async function updateCar(data: any, id: string) {
   try {
     const car = await prisma.cars.update({
       where: {
@@ -96,7 +96,7 @@ export async function updateCar ( data: any, id: string) {
     return car;
 
   } catch (error: any) {
-      throw error; 
-    }
+    throw error;
+  }
 }
 
