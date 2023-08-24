@@ -2,29 +2,23 @@ import { Router } from 'express';
 import { isAuthenticated, hasRole } from '../../auth/auth.controller';
 import { createTripHandler } from './trips.controller';
 import { getAllTripsHandler } from './trips.controller';
+import { getTripByIdHandler } from './trips.controller';
 import { getTripsByUserIdHandler } from './trips.controller';
+import { updateTripHandler } from './trips.controller';
+import { deleteTripHandler } from './trips.controller';
 
 const router = Router();
 
-
-// CREATE
-// /api/trips -> POST
 router.post('/', isAuthenticated, createTripHandler);
 
-// READ
-// /api/trips -> GET
 router.get('/', isAuthenticated, hasRole(['ADMIN']), getAllTripsHandler);
 
-// /api/trips/single -> GET
-router.get('/single', isAuthenticated, getTripsByUserIdHandler);
+router.get('/user-trips', isAuthenticated, getTripsByUserIdHandler);
 
-// UPDATE
-// /api/trip/single -> PATCH
-//router.patch('/single', isAuthenticated, updateTripHandler);
+router.get('/single', isAuthenticated, getTripByIdHandler);
 
-// DELETE
-// /api/trip -> DELETE
-//router.delete('/', isAuthenticated, deleteTripHandler);
+router.patch('/single', isAuthenticated, updateTripHandler);
 
+router.delete('/', isAuthenticated, deleteTripHandler);
 
 export default router;

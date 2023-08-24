@@ -4,14 +4,12 @@ import { Trip } from './trips.types';
 const prisma = new PrismaClient();
 
 export async function createTrip(input: Trip) {
-
   const trip = await prisma.trips.create({ data: input });
 
   return trip;
 }
 
 export async function getAllTrips() {
-
   const users = await prisma.trips.findMany({
     select: {
       id: true,
@@ -31,6 +29,15 @@ export async function getAllTrips() {
   return users;
 }
 
+export async function getTripById(id: string) {
+  const trip = await prisma.trips.findUnique({
+    where: {
+      id,
+    }
+  });
+  return trip
+}
+
 export async function getTripsByUserId(user_id: string) {
   const trips = await prisma.trips.findMany({
     where: {
@@ -45,5 +52,25 @@ export async function getTripsByUserId(user_id: string) {
       }
     }
   });
+
   return trips;
+}
+
+export async function updateTrip(data: Trip, id: string){
+const trip = await prisma.trips.update({
+    where: {
+      id,
+    },
+    data,
+  });
+  return trip
+}
+
+export async function deleteTrip(id: string){
+  const trip = await prisma.trips.delete({
+    where: {
+      id,
+    }
+  });
+  return trip
 }
