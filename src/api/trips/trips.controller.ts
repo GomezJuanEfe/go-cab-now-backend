@@ -8,16 +8,19 @@ import { getTripById } from './trips.service';
 import { updateTrip } from './trips.service';
 import { deleteTrip } from './trips.service';
 
+
 export async function createTripHandler(req: AuthRequest, res: Response) {
   try{
-    const { id } = req.user as User;
+  /*   const { id: user_id } = req.user as User;
     const data = {
       ...req.body,
-      user_id: id
+      user_id
     };
-    const trip = await createTrip(data);
+    const trip = await createTrip(data); */
+    console.log("ok");
+    
 
-    res.status(201).json({ message: 'Trip has been created successfully', trip });
+   // res.status(201).json({ message: 'Trip has been created successfully', trip });
   } catch({ message }: any){
     res.status(400).json({ message })
   }

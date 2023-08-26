@@ -10,7 +10,7 @@ export async function createTrip(input: Trip) {
 }
 
 export async function getAllTrips() {
-  const users = await prisma.trips.findMany({
+  const trips = await prisma.trips.findMany({
     select: {
       id: true,
       user_id: true,
@@ -26,7 +26,7 @@ export async function getAllTrips() {
       Payments: true
     }
   });
-  return users;
+  return trips;
 }
 
 export async function getTripById(id: string) {
