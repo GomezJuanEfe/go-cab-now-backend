@@ -42,9 +42,10 @@ export async function createUserHandler(req: Request, res: Response) {
 
 export async function getUserHandler(req: AuthRequest, res: Response) {
   try {
-
+    console.log(req.user);
+    
     const { id } = req.user as User;
-
+  
     const user = await getUserById(id);
 
     if (!user) {
