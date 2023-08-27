@@ -23,7 +23,7 @@ router.get('/single', isAuthenticated, getCarHandler);
 
 // UPDATE
 // /api/cars/single -> PATCH/
-router.patch('/', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), updateCarHandler);
+router.patch('/single', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), updateCarHandler);
 
 
 // DELETE

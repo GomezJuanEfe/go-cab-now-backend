@@ -7,7 +7,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL_TEST")
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -53,8 +53,8 @@ model Trips {
   total                 Int?
   date                  DateTime?
   status                TripStatus @default(UPCOMING)
-  origin_latitude       Int?
-  destination_latitude  Int?
+  origin_latitude       String?
+  destination_latitude  String?
   origin_longitude      Int?
   destination_longitude Int?
   distance_km           Int?

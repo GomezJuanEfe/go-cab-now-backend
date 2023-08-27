@@ -71,22 +71,19 @@ export const createCarHandler = async (req: AuthRequest, res: Response) => {
   } 
 }
 
-export async function deleteCarHandler(req: AuthRequest, res:Response){
+export async function deleteCarHandler(req: Request, res:Response){
   try {
 
-    const { id } = req.user as  User
-    const car = await getCarByDriverId(id);
+    const { id } = req.body
+    const car = await deleteCar(id);
     
     if (!car) {
       return res.status(404).json({
         message: 'Car not found',
       });
     }
-    
-    await deleteCar(car.id);
-    
-    res.status(201).json({message:"Car deleted successufully", data: car})
-
+     
+    return res.json({message:"Car deleted successfully", data: car})
   } catch ({message }: any) {
     res.status(400).json({ message });
   }
