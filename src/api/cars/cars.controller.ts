@@ -16,7 +16,7 @@ export const getAllCarsHandler = async (_: Request, res: Response) => {
  try {
     const cars = await getAllCars()
 
-    return res.status(200).json({ message: "Cars have been found successfully" , cars})
+    res.status(201).json({ message: "Cars have been found successfully" , cars})
 
   } catch ({ message}: any ) {
     res.status(400).json({ message: "Cars not found" });
@@ -50,7 +50,8 @@ export async function getCarHandler(req: Request, res: Response) {
       updated_at: car.updated_at
     }
 
-    return res.json({message: "Car have been found successfully", car});
+    res.status(201).json({message: "Car have been found successfully", car});
+    
   } catch ({ message }: any) {
     res.status(400).json({ message: "Car not found" });
   }  
@@ -63,7 +64,7 @@ export const createCarHandler = async (req: AuthRequest, res: Response) => {
 
     const carCreated = await createCar(data)
 
-    return res.status(201).json({message: "Car was created successfully", carCreated})
+    res.status(201).json({message: "Car was created successfully", carCreated})
 
   } catch ({ message}: any ) {
     res.status(400).json({ message: "Car wasn't created" });
@@ -116,7 +117,7 @@ export async function updateCarHandler(req: AuthRequest, res: Response) {
       updated_at: carUpdated.updated_at
     }
   
-    return res.json({message: "Information was updated sucessfully", data});
+    res.status(201).json({message: "Information was updated sucessfully", data});
     
   } catch ({ message }: any) {
     res.status(400).json({ message });

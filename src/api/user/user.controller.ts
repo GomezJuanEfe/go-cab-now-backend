@@ -94,7 +94,6 @@ export async function updateUserHandler(req: AuthRequest, res: Response) {
       address: userUpdated.address,
       phone: userUpdated.phone,
       avatar: userUpdated.avatar,
-      is_active: userUpdated.is_active,
     }
   
     res.status(202).json({ message: "Information updated sucessfully", data });
