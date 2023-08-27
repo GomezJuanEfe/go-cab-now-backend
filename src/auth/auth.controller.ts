@@ -29,7 +29,7 @@ export const isAuthenticated = async (
     const user = await getUserByEmail(decoded.email) as User
   
     req.user = user
-  
+
     return next();
   } catch ({ message }: any) {
     res.status(400).json({ message });
