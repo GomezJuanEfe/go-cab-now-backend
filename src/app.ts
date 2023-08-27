@@ -2,6 +2,7 @@ import express from 'express'
 
 import configExpress from './config/express'
 import routes from './routes'
+import { formData } from '../middlewares/formData'
 
 
 const app = express()
@@ -12,6 +13,12 @@ configExpress(app)
 
 //Setup Routes
 routes(app)
+
+//
+app.post('/test-formdata', formData, (req, res) => {
+  // console.log('BODY', req.body)
+  // res.json(req.body)
+})
 
 app.listen(port, () => {
   console.log(`Go Cab Now backend listening on port ${port}`)
