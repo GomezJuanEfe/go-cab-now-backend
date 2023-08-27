@@ -60,8 +60,11 @@ export async function getCarHandler(req: Request, res: Response) {
 
 export const createCarHandler = async (req: AuthRequest, res: Response) => {
   try {
-    const data = req.body
-
+    const { id: user_id } = req.user as User;
+    const data = {
+      ...req.body,
+      user_id
+    };
     const carCreated = await createCar(data)
 
     res.status(201).json({message: "Car was created successfully", carCreated})
