@@ -9,7 +9,7 @@ import { deleteTripHandler } from './trips.controller';
 
 const router = Router();
 
-router.post('/', isAuthenticated, createTripHandler);
+router.post('/', isAuthenticated, hasRole(['ADMIN', 'USER']), createTripHandler);
 
 router.get('/', isAuthenticated, hasRole(['ADMIN']), getAllTripsHandler);
 
