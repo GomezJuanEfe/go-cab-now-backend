@@ -7,7 +7,6 @@ import { getTripsByUserId } from './trips.service';
 import { getTripById } from './trips.service';
 import { updateTrip } from './trips.service';
 import { deleteTrip } from './trips.service';
-import { getUserByEmail } from '../user/user.service';
 
 
 export async function createTripHandler(req: AuthRequest, res: Response) {
