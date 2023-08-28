@@ -26,11 +26,7 @@ export async function getAllCars() {
 export async function createCar(input: Cars) {
   try {
     const car = await prisma.cars.create({
-      data: {
-        car_name: input.car_name,
-        type: input.type,
-        driver_id: input.driver_id,
-      }
+      data: input
     });
 
     return car;
