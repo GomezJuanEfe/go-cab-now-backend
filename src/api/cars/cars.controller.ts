@@ -63,14 +63,15 @@ export const createCarHandler = async (req: AuthRequest, res: Response) => {
     const { id: user_id } = req.user as User;
     const data = {
       ...req.body,
-      user_id
+      driver_id: user_id
+      
     };
     const carCreated = await createCar(data)
 
     res.status(201).json({message: "Car was created successfully", carCreated})
 
   } catch ({ message}: any ) {
-    res.status(400).json({ message: "Car wasn't created" });
+    res.status(400).json({ message });
   } 
 }
 
