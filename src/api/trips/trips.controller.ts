@@ -7,7 +7,8 @@ import { getTripsByUserId } from './trips.service';
 import { getTripById } from './trips.service';
 import { updateTrip } from './trips.service';
 import { deleteTrip } from './trips.service';
-import { getTripByCarId } from './trips.service';
+import { getTripsByCarId } from './trips.service';
+import { getCarByDriverId } from '../cars/cars.service';
 
 
 export async function createTripHandler(req: AuthRequest, res: Response) {
@@ -63,12 +64,13 @@ export async function getTripsByUserIdHandler(req: AuthRequest, res: Response) {
   }
 }
 
-export async function getTripsByCarIdHandler(req: Request, res: Response){
+export async function getTripsByCarIdHandler(req: AuthRequest, res: Response){
   try{
-    const { car_id } = req.body;  
-    const trip = await getTripByCarId(car_id);
+    const { id } = req.user as User;  
+    const car = await getCarByDriverId(id);
+    const trips = await getTripsByCarId(car?.id)
 
-    res.status(202).json({message: 'Trips has been found successfully', trip});
+    res.status(202).json({message: 'Trips has been found successfully', trips});
   } catch({ message }: any){
     res.status(400).json({ message })
   }
