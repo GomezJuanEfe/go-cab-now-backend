@@ -7,7 +7,6 @@ const prisma = new PrismaClient();
 
 export async function getAllUser() {
   try {
-    // PREGUNTA - Juan: En el panel del ADMIN, cómo debería gestionar la petición de un usuario específico, por email? qué tipo de petición?
     const users = await prisma.user.findMany({
       select: {
         email: true,

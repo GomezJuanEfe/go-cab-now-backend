@@ -9,7 +9,7 @@ import {
   getCarById,
   deleteCar, 
   updateCar,
-
+  getAllCarsPaginated
 } from './cars.service'
 
 export const getAllCarsHandler = async (_: Request, res: Response) => {
@@ -33,21 +33,6 @@ export async function getCarHandler(req: Request, res: Response) {
       return res.status(404).json({
         message: `Car not found, this id the car id: ${id}`,
       })
-    }
-
-    const data = {
-      id: car.id,
-      car_name: car.car_name,
-      type: car.type,
-      img: car.img,
-      seats: car.seats,
-      luggage: car.luggage,
-      air_conditioner: car.air_conditioner,
-      transmition: car.transmition,
-      fare_km: car.fare_km,
-      driver_id: car.driver_id,
-      created_at: car.created_at,
-      updated_at: car.updated_at
     }
 
     res.status(201).json({message: "Car have been found successfully", car});
@@ -126,4 +111,35 @@ export async function updateCarHandler(req: AuthRequest, res: Response) {
   } catch ({ message }: any) {
       res.status(400).json({ message });
   }
+}
+
+export const getAllCarsPaginatedHandler = async (req: Request, res: Response) => {
+ try {
+  const { page: pageQuery, pageSize: pageSizeQuery } = req.query
+  const page = parseInt(pageQuery as string) || 1
+  const pageSize = parseInt(pageSizeQuery as string) || 5
+
+  const { cars, totalCount } = await getAllCarsPaginated(page, pageSize);
+
+  const totalPages = Math.ceil(totalCount/pageSize);
+
+  if (page > totalPages) {
+    throw new Error ('Page not found')
+  }
+
+  const newResponse = {
+    pageInfo: {
+      currentPage: page,
+      pageSize,
+      totalPages,
+      totalCount
+    },
+    cars
+  }
+
+  res.status(200).json({ message: "Cars have been found successfully" , response: newResponse})
+
+  } catch ({ message}: any ) {
+    res.status(400).json({ message: "Cars not found" });
+  } 
 }
