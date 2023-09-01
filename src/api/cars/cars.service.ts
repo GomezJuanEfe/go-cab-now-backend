@@ -96,3 +96,28 @@ export async function updateCar(data: any, id: string) {
   }
 }
 
+export async function getAllCarsPaginated(page: number, pageSize: number) {
+  try {
+    const skip = (page - 1) * pageSize
+
+    const [ cars, totalCount ] = await Promise.all([
+      prisma.cars.findMany({
+        skip,
+        take: pageSize,
+        include: {
+          driver: {
+            select: {
+              id: true,
+              first_name: true,
+              last_name: true,
+            }
+          }
+        }
+      }),
+      prisma.cars.count()
+    ]);
+    return { cars, totalCount };
+  } catch (error: any) {
+    throw error;
+  }
+}
