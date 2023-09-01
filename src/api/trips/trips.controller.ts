@@ -7,6 +7,7 @@ import { getTripsByUserId } from './trips.service';
 import { getTripById } from './trips.service';
 import { updateTrip } from './trips.service';
 import { deleteTrip } from './trips.service';
+import { getTripByCarId } from './trips.service';
 
 
 export async function createTripHandler(req: AuthRequest, res: Response) {
@@ -58,6 +59,17 @@ export async function getTripsByUserIdHandler(req: AuthRequest, res: Response) {
 
     res.status(202).json({message: 'User trips has been found successfully', trips});
   }catch({ message }: any){
+    res.status(400).json({ message })
+  }
+}
+
+export async function getTripsByCarIdHandler(req: Request, res: Response){
+  try{
+    const { car_id } = req.body;  
+    const trip = await getTripByCarId(car_id);
+
+    res.status(202).json({message: 'Trips has been found successfully', trip});
+  } catch({ message }: any){
     res.status(400).json({ message })
   }
 }

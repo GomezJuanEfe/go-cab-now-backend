@@ -31,7 +31,7 @@ model Cars {
   id              String       @id @default(cuid())
   car_name        String
   type            String
-  img             Int?
+  img             String?
   seats           Int?
   luggage         Int?
   air_conditioner Boolean?
