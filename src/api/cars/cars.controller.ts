@@ -25,13 +25,13 @@ export const getAllCarsHandler = async (_: Request, res: Response) => {
 
 export async function getCarHandler(req: Request, res: Response) {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
 
     const car = await getCarById(id);
 
     if (!car){
       return res.status(404).json({
-        message: 'Car not found',
+        message: `Car not found, this id the car id: ${id}`,
       })
     }
 
@@ -77,8 +77,7 @@ export const createCarHandler = async (req: AuthRequest, res: Response) => {
 
 export async function deleteCarHandler(req: Request, res:Response){
   try {
-
-    const { id } = req.body
+    const { id } = req.params
     const car = await deleteCar(id);
     
     if (!car) {
@@ -95,12 +94,13 @@ export async function deleteCarHandler(req: Request, res:Response){
 
 export async function updateCarHandler(req: AuthRequest, res: Response) {
   try {
-    const { id } = req.user as User;
+    const { id } = req.params;
+
     const car = await getCarByDriverId(id);
   
     if (!car) {
       return res.status(404).json({
-        message: 'Car not found',
+        message: `Car not found, this id the car id: ${id}`,
       });
     }
   
@@ -124,6 +124,6 @@ export async function updateCarHandler(req: AuthRequest, res: Response) {
     res.status(201).json({message: "Information was updated sucessfully", data});
     
   } catch ({ message }: any) {
-    res.status(400).json({ message });
+      res.status(400).json({ message });
   }
 }

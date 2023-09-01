@@ -19,7 +19,7 @@ router.post('/', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), createCarHandler
 router.get('/', getAllCarsHandler)
 
 // /api/cars/single -> GET
-router.get('/single', isAuthenticated, getCarHandler);
+router.get('/single/:id', isAuthenticated, getCarHandler);
 
 // UPDATE
 // /api/cars/single -> PATCH/
@@ -28,6 +28,6 @@ router.patch('/single', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), updateCar
 
 // DELETE
 // /api/cars -> DELETE
-router.delete('/', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), deleteCarHandler);
+router.delete('/:id', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), deleteCarHandler);
 
 export default router;
