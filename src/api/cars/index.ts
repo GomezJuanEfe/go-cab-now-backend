@@ -4,7 +4,8 @@ import {
   getCarHandler,
   createCarHandler,
   deleteCarHandler,
-  updateCarHandler
+  updateCarHandler,
+  getAllCarsPaginatedHandler
 } from "./cars.controller";
 import { isAuthenticated, hasRole } from "../../auth/auth.controller";
 
@@ -12,11 +13,13 @@ const router = Router()
 
 // CREATE
 // /api/cars -> POST
-router.post('/', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), createCarHandler)
+router.post('/', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), createCarHandler);
 
 // READ
 // /api/cars -> GET
-router.get('/', getAllCarsHandler)
+router.get('/', getAllCarsHandler);
+// /api/cars/paginated -> GET
+router.get('/paginated', getAllCarsPaginatedHandler);
 
 // /api/cars/single -> GET
 router.get('/single', isAuthenticated, getCarHandler);
