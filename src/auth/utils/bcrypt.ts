@@ -26,3 +26,17 @@ export const comparePassword = async (
 ) => {
   return await bcrypt.compare(password, hashedPassword);
 }
+
+/**
+ * hashedPassword
+ * @param password Password to hash
+ * @param hashedPassword Number of rounds to hash the password, default is 10
+ * @returns Hashed passwword
+ */
+export const hashPasswordSync = (password: string, factor?: number) => {
+  // 1. salt
+  const salt = bcrypt.genSaltSync(factor)
+
+  // 2. hash
+  return bcrypt.hashSync(password, salt)
+}
