@@ -22,7 +22,7 @@ router.get('/', getAllCarsHandler);
 router.get('/paginated', getAllCarsPaginatedHandler);
 
 // /api/cars/single -> GET
-router.get('/single/:id', isAuthenticated, getCarHandler);
+router.get('/single', isAuthenticated, getCarHandler);
 
 // UPDATE
 // /api/cars/single -> PATCH/

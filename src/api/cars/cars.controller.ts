@@ -23,22 +23,22 @@ export const getAllCarsHandler = async (_: Request, res: Response) => {
   } 
 }
 
-export async function getCarHandler(req: Request, res: Response) {
+export async function getCarHandler(req: AuthRequest, res: Response) {
   try {
-    const { id } = req.params;
+    const { id } = req.user as User;
 
-    const car = await getCarById(id);
+    const cars = await getCarByDriverId(id);
 
-    if (!car){
+    if (!cars){
       return res.status(404).json({
-        message: `Car not found, this id the car id: ${id}`,
+        message: "Car not found",
       })
     }
 
-    res.status(201).json({message: "Car have been found successfully", car});
+    res.status(201).json({message: "Car have been found successfully", cars});
     
   } catch ({ message }: any) {
-    res.status(400).json({ message: "Car not found" });
+    res.status(400).json({ message: "Car not found", error: message });
   }  
 }
 
