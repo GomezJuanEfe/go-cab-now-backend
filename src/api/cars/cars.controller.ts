@@ -79,9 +79,9 @@ export async function deleteCarHandler(req: Request, res:Response){
 
 export async function updateCarHandler(req: AuthRequest, res: Response) {
   try {
-    const { id } = req.params;
+    const { id } = req.body;
 
-    const car = await getCarByDriverId(id);
+    const car = await getCarById(id);
   
     if (!car) {
       return res.status(404).json({
