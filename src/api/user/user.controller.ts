@@ -6,13 +6,16 @@ import {
   getAllUser,
   getUserById,
   updateUser,
+  getDriversWithoutCar
 } from './user.service';
 import { AuthRequest } from '../../auth/auth.types';
 import { User } from './user.types';
 
 export async function getAllUserHandler(req: AuthRequest, res: Response) {
   try {
-    const users = await getAllUser();
+    const { id } = req.user as User;
+
+    const users = await getAllUser(id);
 
     res.status(202).json({message: 'Users have been found successfully', users });
   } catch ({ message }: any) {
@@ -120,5 +123,21 @@ export async function deleteUserHandler(req: AuthRequest, res: Response) {
     res.status(202).json({ message: 'User has been deleted', user });
   } catch ({ message }: any) {
     res.status(400).json({ message });
+  }
+}
+
+export const getDriversWithoutCarHandler = async (req: Request, res: Response) => {
+  try {
+    const drivers = await getDriversWithoutCar();
+
+    if (!drivers) {
+      return res.status(204).json({
+        message: 'No drives available'
+      })
+    }
+
+    res.status(200).json({ message: "Drivers found successfully", drivers})
+  } catch ({ message }: any) {
+    res.status(400).json({ message: "Drives not found", error: message});
   }
 }
