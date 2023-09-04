@@ -13,7 +13,9 @@ import { User } from './user.types';
 
 export async function getAllUserHandler(req: AuthRequest, res: Response) {
   try {
-    const users = await getAllUser();
+    const { id } = req.user as User;
+
+    const users = await getAllUser(id);
 
     res.status(202).json({message: 'Users have been found successfully', users });
   } catch ({ message }: any) {
