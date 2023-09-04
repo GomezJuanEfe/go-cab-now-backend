@@ -56,6 +56,15 @@ export async function getTripsByUserId(user_id: string) {
   return trips;
 }
 
+export async function getTripsByCarId(car_id: any){
+  const trips = await prisma.trips.findMany({
+    where: {
+      car_id,
+    }
+  });
+  return trips
+}
+
 export async function updateTrip(data: Trip, id: string){
 const trip = await prisma.trips.update({
     where: {
