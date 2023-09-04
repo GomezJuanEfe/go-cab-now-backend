@@ -86,4 +86,5 @@ enum TripStatus {
   UPCOMING
   PAST
   CANCELLED
+  COMPLETED
 }
