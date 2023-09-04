@@ -6,6 +6,7 @@ import {
   getAllUserHandler,
   getUserHandler,
   updateUserHandler,
+  getDriversWithoutCarHandler,
 } from './user.controller';
 import { isAuthenticated, hasRole } from '../../auth/auth.controller';
 
@@ -20,6 +21,8 @@ router.post('/', createUserHandler);
 router.get('/', isAuthenticated, hasRole(['ADMIN']), getAllUserHandler);
 // /api/users/single -> GET
 router.get('/single', isAuthenticated, getUserHandler);
+// /api/users/drivers-without-car
+router.get('/drivers-without-car', isAuthenticated, hasRole(['ADMIN']), getDriversWithoutCarHandler)
 
 // UPDATE
 // /api/users/single -> PATCH

@@ -5,7 +5,7 @@ import { User } from './user.types';
 
 const prisma = new PrismaClient();
 
-export async function getAllUser() {
+export async function getAllUser(id: string) {
   try {
     const users = await prisma.user.findMany({
       select: {
@@ -20,6 +20,14 @@ export async function getAllUser() {
         is_active: true,
         created_at: true,
         updated_at: true,
+      },
+      where: {
+        id: {
+          not: id,
+        }
+      },
+      orderBy: {
+        role: "desc"
       }
     });
     return users;
@@ -105,6 +113,31 @@ export async function updateUser(data: any, id: string) {
     });
 
     return user;
+  } catch (error: any) {
+    throw error;
+  }
+}
+
+export async function getDriversWithoutCar () {
+  try {
+    const drivers = await prisma.user.findMany({
+      where: {
+        AND: [
+          { car: null},
+          { role: 'DRIVER'}
+        ]
+      },
+      select: {
+        first_name: true,
+        last_name: true,
+        email: true,
+        role: true,
+        address: true,
+        phone: true,
+      },
+    });
+
+    return drivers;
   } catch (error: any) {
     throw error;
   }

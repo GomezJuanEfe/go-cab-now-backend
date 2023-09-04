@@ -9,7 +9,7 @@ import {
   getCarById,
   deleteCar, 
   updateCar,
-  getAllCarsPaginated
+  getAllCarsPaginated,
 } from './cars.service'
 
 export const getAllCarsHandler = async (_: Request, res: Response) => {
@@ -114,11 +114,12 @@ export async function updateCarHandler(req: Request, res: Response) {
 
 export const getAllCarsPaginatedHandler = async (req: Request, res: Response) => {
  try {
-  const { page: pageQuery, pageSize: pageSizeQuery } = req.query
+  const { page: pageQuery, pageSize: pageSizeQuery, searchInput: searchQuery } = req.query
   const page = parseInt(pageQuery as string) || 1
   const pageSize = parseInt(pageSizeQuery as string) || 5
+  const searchInput = searchQuery as string || ''; 
 
-  const { cars, totalCount } = await getAllCarsPaginated(page, pageSize);
+  const { cars, totalCount }= await getAllCarsPaginated(page, pageSize, searchInput);
 
   const totalPages = Math.ceil(totalCount/pageSize);
 
