@@ -77,15 +77,14 @@ export async function deleteCarHandler(req: Request, res:Response){
   }
 }
 
-export async function updateCarHandler(req: AuthRequest, res: Response) {
+export async function updateCarHandler(req: Request, res: Response) {
   try {
-    const { id } = req.body;
-
+    const { id } = req.params;
     const car = await getCarById(id);
   
     if (!car) {
       return res.status(404).json({
-        message: `Car not found, this id the car id: ${id}`,
+        message: `Car not found`,
       });
     }
   
