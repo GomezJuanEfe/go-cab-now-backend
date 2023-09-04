@@ -6,6 +6,7 @@ import { getTripByIdHandler } from './trips.controller';
 import { getTripsByUserIdHandler } from './trips.controller';
 import { updateTripHandler } from './trips.controller';
 import { deleteTripHandler } from './trips.controller';
+import { getTripsByCarIdHandler } from './trips.controller';
 
 const router = Router();
 
@@ -14,6 +15,8 @@ router.post('/', isAuthenticated, hasRole(['ADMIN', 'USER']), createTripHandler)
 router.get('/', isAuthenticated, hasRole(['ADMIN']), getAllTripsHandler);
 
 router.get('/user-trips', isAuthenticated, getTripsByUserIdHandler);
+
+router.get('/car-trips', isAuthenticated, hasRole(['DRIVER']), getTripsByCarIdHandler);
 
 router.get('/single', isAuthenticated, getTripByIdHandler);
 
