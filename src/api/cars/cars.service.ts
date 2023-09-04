@@ -96,7 +96,7 @@ export async function updateCar(data: any, id: string) {
   }
 }
 
-export async function getAllCarsPaginated(page: number, pageSize: number) {
+export async function getAllCarsPaginated(page: number, pageSize: number, searchQuery: string) {
   try {
     const skip = (page - 1) * pageSize
 
@@ -104,17 +104,32 @@ export async function getAllCarsPaginated(page: number, pageSize: number) {
       prisma.cars.findMany({
         skip,
         take: pageSize,
-        include: {
-          driver: {
-            select: {
-              id: true,
-              first_name: true,
-              last_name: true,
+        where: {
+          OR: [
+            {car_name:
+              {contains: searchQuery, mode: 'insensitive'}
+            },
+            {type:
+              {contains: searchQuery, mode: 'insensitive'}
             }
-          }
+          ]
+        },
+        orderBy: {
+          type: "asc"
         }
       }),
-      prisma.cars.count()
+      prisma.cars.count({
+        where: {
+          OR: [
+            {car_name:
+              {contains: searchQuery, mode: 'insensitive'}
+            },
+            {type:
+              {contains: searchQuery, mode: 'insensitive'}
+            }
+          ]
+        }
+      })
     ]);
     return { cars, totalCount };
   } catch (error: any) {
