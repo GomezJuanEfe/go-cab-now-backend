@@ -5,7 +5,7 @@ import { User } from './user.types';
 
 const prisma = new PrismaClient();
 
-export async function getAllUser() {
+export async function getAllUser(id: string) {
   try {
     const users = await prisma.user.findMany({
       select: {
@@ -20,6 +20,14 @@ export async function getAllUser() {
         is_active: true,
         created_at: true,
         updated_at: true,
+      },
+      where: {
+        id: {
+          not: id,
+        }
+      },
+      orderBy: {
+        role: "desc"
       }
     });
     return users;
