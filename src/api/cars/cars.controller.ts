@@ -9,7 +9,7 @@ import {
   getCarById,
   deleteCar, 
   updateCar,
-  getAllCarsPaginated
+  getAllCarsPaginated,
 } from './cars.service'
 
 export const getAllCarsHandler = async (_: Request, res: Response) => {
@@ -23,22 +23,22 @@ export const getAllCarsHandler = async (_: Request, res: Response) => {
   } 
 }
 
-export async function getCarHandler(req: Request, res: Response) {
+export async function getCarHandler(req: AuthRequest, res: Response) {
   try {
-    const { id } = req.body;
+    const { id } = req.user as User;
 
-    const car = await getCarById(id);
+    const cars = await getCarByDriverId(id);
 
-    if (!car){
+    if (!cars){
       return res.status(404).json({
-        message: 'Car not found',
+        message: "Car not found",
       })
     }
 
-    res.status(201).json({message: "Car have been found successfully", car});
+    res.status(201).json({message: "Car have been found successfully", cars});
     
   } catch ({ message }: any) {
-    res.status(400).json({ message: "Car not found" });
+    res.status(400).json({ message: "Car not found", error: message });
   }  
 }
 
@@ -62,8 +62,7 @@ export const createCarHandler = async (req: AuthRequest, res: Response) => {
 
 export async function deleteCarHandler(req: Request, res:Response){
   try {
-
-    const { id } = req.body
+    const { id } = req.params
     const car = await deleteCar(id);
     
     if (!car) {
@@ -78,14 +77,14 @@ export async function deleteCarHandler(req: Request, res:Response){
   }
 }
 
-export async function updateCarHandler(req: AuthRequest, res: Response) {
+export async function updateCarHandler(req: Request, res: Response) {
   try {
-    const { id } = req.user as User;
-    const car = await getCarByDriverId(id);
+    const { id } = req.params;
+    const car = await getCarById(id);
   
     if (!car) {
       return res.status(404).json({
-        message: 'Car not found',
+        message: `Car not found`,
       });
     }
   
@@ -109,17 +108,18 @@ export async function updateCarHandler(req: AuthRequest, res: Response) {
     res.status(201).json({message: "Information was updated sucessfully", data});
     
   } catch ({ message }: any) {
-    res.status(400).json({ message });
+      res.status(400).json({ message });
   }
 }
 
 export const getAllCarsPaginatedHandler = async (req: Request, res: Response) => {
  try {
-  const { page: pageQuery, pageSize: pageSizeQuery } = req.query
+  const { page: pageQuery, pageSize: pageSizeQuery, searchInput: searchQuery } = req.query
   const page = parseInt(pageQuery as string) || 1
   const pageSize = parseInt(pageSizeQuery as string) || 5
+  const searchInput = searchQuery as string || ''; 
 
-  const { cars, totalCount } = await getAllCarsPaginated(page, pageSize);
+  const { cars, totalCount }= await getAllCarsPaginated(page, pageSize, searchInput);
 
   const totalPages = Math.ceil(totalCount/pageSize);
 
