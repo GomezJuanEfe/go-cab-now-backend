@@ -25,21 +25,13 @@ export const getAllCarsHandler = async (_: Request, res: Response) => {
 
 export async function getCarHandler(req: AuthRequest, res: Response) {
   try {
-<<<<<<< HEAD
-    const { id } = req.params;
-=======
     const { id } = req.user as User;
->>>>>>> e25fd5c3085fb5ece5f20fb3a4938985710f4711
 
     const cars = await getCarByDriverId(id);
 
     if (!cars){
       return res.status(404).json({
-<<<<<<< HEAD
-        message: `Car not found, this id the car id: ${id}`,
-=======
         message: "Car not found",
->>>>>>> e25fd5c3085fb5ece5f20fb3a4938985710f4711
       })
     }
 
