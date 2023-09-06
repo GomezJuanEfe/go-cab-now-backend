@@ -50,6 +50,11 @@ model Trips {
   user                  User       @relation(fields: [user_id], references: [id])
   car_id                String
   car                   Cars       @relation(fields: [car_id], references: [id])
+  contact_first_name    String?
+  contact_last_name     String?
+  contact_email         String?
+  contact_phone         String?
+  contact_request       String?
   total                 Int?
   date                  DateTime?
   status                TripStatus @default(UPCOMING)
