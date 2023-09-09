@@ -99,7 +99,6 @@ export async function deleteUser(id: string) {
 
 export async function updateUser(data: any, id: string) {
   try {
-    // PREGUNTA-Juan: El argumento data está como any. Cómo se puede tipar correctamente este dato?
     const password = data.password;
     if (password) {
       const hashedPassword = await hashPassword(password);
