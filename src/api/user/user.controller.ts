@@ -106,7 +106,6 @@ export async function updateUserHandler(req: AuthRequest, res: Response) {
   }
 }
 
-
 export async function deleteUserHandler(req: AuthRequest, res: Response) {
   try {
     const { id } = req.user as User;
@@ -143,6 +142,19 @@ export async function getDriversWithoutCarHandler (req: Request, res: Response) 
   }
 }
 
+export async function handleUploadImage (req: AuthRequest, res: Response) {
+  try {
+    const { id } = req.user as User;
+
+    const user = await getUserById(id) as any;
+    const { avatar } = await updateUser(req.body, user.id);
+
+    res.status(202).json({ message: "Image was updated sucessfully", avatar });
+  } catch ({ message }: any) {
+    res.status(400).json({message: "There was an erro uploading the image", error: message});
+    }
+  }
+
 export async function updateUserByAdmin (req: Request, res: Response) {
   try {
     const { email } = req.body;
@@ -154,7 +166,7 @@ export async function updateUserByAdmin (req: Request, res: Response) {
         message: 'User not found',
       });
     }
-  
+
     const userUpdated = await updateUser(req.body, user.id);
 
     const data = {
