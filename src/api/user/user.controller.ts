@@ -10,6 +10,7 @@ import {
 } from './user.service';
 import { AuthRequest } from '../../auth/auth.types';
 import { User } from './user.types';
+import { sendMailSendGrid } from '../../config/sendGrid';
 
 export async function getAllUserHandler(req: AuthRequest, res: Response) {
   try {
@@ -35,6 +36,18 @@ export async function createUserHandler(req: Request, res: Response) {
       email: user.email,
       avatar: user.avatar,
     }
+
+    // Send mail
+    const emailData = {
+      from: "No reply <go.cab.now.123@gmail.com>",
+      to: user.email,
+      subject: "Welcome to the app",
+      html: `
+        <h1>Welcome to the app</h1>
+      `
+    }
+
+    sendMailSendGrid(emailData);
 
     res.status(201).json({ message: 'User has been created successfully', profile });
   } catch ({ message }: any) {
