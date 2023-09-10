@@ -158,7 +158,6 @@ export async function handleUploadImage (req: AuthRequest, res: Response) {
 
     res.status(202).json({ message: "Image was updated sucessfully", avatar });
   } catch ({ message }: any) {
-    console.log(message);
     res.status(400).json({message: "There was an erro uploading the image", error: message});
   }
 }
