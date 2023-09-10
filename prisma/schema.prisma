@@ -32,7 +32,7 @@ model Cars {
   car_name        String
   type            String
   img             String?
-  seats           String?
+  seats           Int?
   luggage         Int?
   air_conditioner Boolean?
   transmition     Transmition?
