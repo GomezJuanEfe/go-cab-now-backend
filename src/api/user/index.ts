@@ -7,6 +7,8 @@ import {
   getUserHandler,
   updateUserHandler,
   getDriversWithoutCarHandler,
+  updateUserByAdmin,
+  delteUserByAdmin,
 } from './user.controller';
 import { isAuthenticated, hasRole } from '../../auth/auth.controller';
 
@@ -27,10 +29,14 @@ router.get('/drivers-without-car', isAuthenticated, hasRole(['ADMIN']), getDrive
 // UPDATE
 // /api/users/single -> PATCH
 router.patch('/single', isAuthenticated, updateUserHandler);
+// /api/users -> PATCH
+router.patch('/', isAuthenticated, hasRole(['ADMIN']), updateUserByAdmin)
 
-// DELETE
 // /api/users -> DELETE
+// DELETE
 router.delete('/', isAuthenticated, deleteUserHandler);
+router.delete('/:email', isAuthenticated,hasRole(['ADMIN']), delteUserByAdmin);
+
 
 
 export default router;
