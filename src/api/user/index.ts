@@ -7,14 +7,18 @@ import {
   getUserHandler,
   updateUserHandler,
   getDriversWithoutCarHandler,
+  handleUploadImage,
 } from './user.controller';
 import { isAuthenticated, hasRole } from '../../auth/auth.controller';
+import { formData } from '../../middlewares/formData';
 
 const router = Router();
 
 // CREATE
 // /api/users -> POST
 router.post('/', createUserHandler);
+// /api/users/upload-img -> POST
+router.post('/upload-img', isAuthenticated, formData, handleUploadImage )
 
 // READ
 // /api/users -> GET

@@ -141,3 +141,23 @@ export const getDriversWithoutCarHandler = async (req: Request, res: Response) =
     res.status(400).json({ message: "Drives not found", error: message});
   }
 }
+
+export async function handleUploadImage (req: AuthRequest, res: Response) {
+  try {
+    const { id } = req.user as User;
+
+    const user = await getUserById(id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found',
+      });
+    }
+
+    const { avatar } = await updateUser(req.body, user.id) as any;
+
+    res.status(202).json({ message: "Image was updated sucessfully", avatar });
+  } catch ({ message }: any) {
+    res.status(400).json({message: "There was an erro uploading the image", error: message});
+  }
+}
