@@ -30,7 +30,6 @@ export const handlePayment = async (req: Request, res: Response) => {
 export const handleCreatePayment = async (req: Request, res: Response) => {
   try{
     const data = req.body;
-    console.log(data);
     const payment = await createPayment(data);
 
     res.status(202).json({message: 'Payment created successfully', payment});
