@@ -197,5 +197,7 @@ export const userSeeder: User[] = Array.from({ length: usersInfo.length}).map((e
     address: usersInfo[i].address,
     phone: usersInfo[i].phone,
     is_active: usersInfo[i].is_active,
+    reset_token: null,
+    token_exp: null,
   })
 })

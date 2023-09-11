@@ -6,10 +6,14 @@ import {
   getAllUser,
   getUserById,
   updateUser,
-  getDriversWithoutCar
+  getDriversWithoutCar,
+  getUserByEmail,
 } from './user.service';
 import { AuthRequest } from '../../auth/auth.types';
 import { User } from './user.types';
+import { sendMailSendGrid } from '../../config/sendGrid';
+
+import { verifyAccountEmail } from '../../utils/emailSendGrid';
 
 export async function getAllUserHandler(req: AuthRequest, res: Response) {
   try {
@@ -35,6 +39,8 @@ export async function createUserHandler(req: Request, res: Response) {
       email: user.email,
       avatar: user.avatar,
     }
+
+    sendMailSendGrid(verifyAccountEmail(user));
 
     res.status(201).json({ message: 'User has been created successfully', profile });
   } catch ({ message }: any) {
@@ -105,7 +111,6 @@ export async function updateUserHandler(req: AuthRequest, res: Response) {
   }
 }
 
-
 export async function deleteUserHandler(req: AuthRequest, res: Response) {
   try {
     const { id } = req.user as User;
@@ -126,7 +131,7 @@ export async function deleteUserHandler(req: AuthRequest, res: Response) {
   }
 }
 
-export const getDriversWithoutCarHandler = async (req: Request, res: Response) => {
+export async function getDriversWithoutCarHandler (req: Request, res: Response) {
   try {
     const drivers = await getDriversWithoutCar();
 
@@ -139,5 +144,68 @@ export const getDriversWithoutCarHandler = async (req: Request, res: Response) =
     res.status(200).json({ message: "Drivers found successfully", drivers})
   } catch ({ message }: any) {
     res.status(400).json({ message: "Drives not found", error: message});
+  }
+}
+
+export async function handleUploadImage (req: AuthRequest, res: Response) {
+  try {
+    const { id } = req.user as User;
+
+    const user = await getUserById(id) as any;
+    const { avatar } = await updateUser(req.body, user.id);
+
+    res.status(202).json({ message: "Image was updated sucessfully", avatar });
+  } catch ({ message }: any) {
+    res.status(400).json({message: "There was an erro uploading the image", error: message});
+    }
+  }
+
+export async function updateUserByAdmin (req: Request, res: Response) {
+  try {
+    const { email } = req.body;
+  
+    const user = await getUserByEmail(email);
+  
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found',
+      });
+    }
+
+    const userUpdated = await updateUser(req.body, user.id);
+
+    const data = {
+      email: userUpdated.email,
+      first_name: userUpdated.first_name,
+      last_name: userUpdated.last_name,
+      role: userUpdated.role,
+      address: userUpdated.address,
+      phone: userUpdated.phone,
+      avatar: userUpdated.avatar,
+    }
+  
+    res.status(202).json({ message: "Information updated sucessfully", data });
+  } catch ({ message }: any) {
+    res.status(400).json({ message });
+  }
+}
+
+export async function delteUserByAdmin( req: Request, res: Response ) {
+  try {
+    const { email } = req.params
+  
+    const user = await getUserByEmail(email);
+  
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found',
+      });
+    }
+  
+    await deleteUser(user.id);
+  
+    res.status(202).json({ message: 'User has been deleted', user });
+  } catch ({ message }: any) {
+    res.status(400).json({ message });
   }
 }
