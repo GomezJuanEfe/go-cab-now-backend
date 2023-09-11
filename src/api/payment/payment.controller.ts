@@ -7,6 +7,8 @@ const stripe = new Stripe(STRIPE_SECRET_KEY, {
   apiVersion: '2023-08-16',
 })
 
+const redirectUrl = process.env.FRONTEND_URL as string;
+
 export const handlePayment = async (req: Request, res: Response) => {
   const { paymentMethod, amount } = req.body
 
@@ -18,7 +20,10 @@ export const handlePayment = async (req: Request, res: Response) => {
       currency: 'usd',
       confirm: true,
       description: 'trip with Go Cab Now',
-      return_url: 'http://localhost:3000/paymentsuccess'
+      return_url: `${redirectUrl}/success`,
+      payment_method_types: [
+        "card"
+      ],
     })
 
     res.status(201).json({ message: 'Payment successful', payment })
