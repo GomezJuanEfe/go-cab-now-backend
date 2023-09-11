@@ -11,6 +11,9 @@ import {
   updateCar,
   getAllCarsPaginated,
 } from './cars.service'
+import { getUserByEmail } from '../user/user.service';
+
+
 
 export const getAllCarsHandler = async (_: Request, res: Response) => {
  try {
@@ -45,11 +48,12 @@ export async function getCarHandler(req: AuthRequest, res: Response) {
 
 export const createCarHandler = async (req: AuthRequest, res: Response) => {
   try {
-    const { id: user_id } = req.user as User;
+    const { driver_email, car_info } = req.body;
+    const { id }: any = await getUserByEmail(driver_email)
+
     const data = {
-      ...req.body,
-      driver_id: user_id
-      
+      ...car_info,
+      driver_id: id,
     };
     const carCreated = await createCar(data)
 
