@@ -206,6 +206,6 @@ export async function delteUserByAdmin( req: Request, res: Response ) {
   
     res.status(202).json({ message: 'User has been deleted', user });
   } catch ({ message }: any) {
-    res.status(400).json(message);
+    res.status(400).json({ message });
   }
 }
