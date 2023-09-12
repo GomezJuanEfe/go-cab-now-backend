@@ -5,15 +5,22 @@ import {
   createCarHandler,
   deleteCarHandler,
   updateCarHandler,
-  getAllCarsPaginatedHandler
+  getAllCarsPaginatedHandler,
+  handleCreateCarImage,
 } from "./cars.controller";
 import { isAuthenticated, hasRole } from "../../auth/auth.controller";
+import { formData } from '../../middlewares/formData';
 
 const router = Router()
+
+//CREATE IMAGE
+// / api/cars/upload-img -> POST
+  router.post('upload-img', isAuthenticated, formData('GCN-NewCar'), handleCreateCarImage)
 
 // CREATE
 // /api/cars -> POST
 router.post('/', isAuthenticated, hasRole(["ADMIN", "DRIVER"]), createCarHandler);
+
 
 // READ
 // /api/cars -> GET

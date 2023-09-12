@@ -45,6 +45,34 @@ export async function getCarHandler(req: AuthRequest, res: Response) {
   }  
 }
 
+export async function handleCreateCarImage (req: AuthRequest, res: Response) {
+  try {
+  
+    const { driver_email, car_info} = req.body;
+    const { id }: any = await getUserByEmail(driver_email)
+
+    const { img } = await createCar(id)
+
+    res.status(202).json({ message: 'Image was upload sucessfully', })
+  } catch ({ message }: any) {
+    res.status(400).json({message: 'There was an error uploading image', error: message})
+  }
+}
+
+export async function handleUpdateCarImage (req: AuthRequest, res: Response) {
+  try {
+  
+    const { id } = req.params;
+    const car = await getCarById(id);
+
+    const { img } = await updateCar(req.body, car?.id)
+
+    res.status(202).json({ message: 'Image was updated sucessfully', })
+  } catch ({ message }: any) {
+    res.status(400).json({message: 'There was an error updated image', error: message})
+  }
+}
+
 
 export const createCarHandler = async (req: AuthRequest, res: Response) => {
   try {

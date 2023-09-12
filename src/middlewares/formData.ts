@@ -10,38 +10,46 @@ cloudinary.config({
 });
 
 // Middleware
-export const formData = (req: Request, res: Response, next: NextFunction) => {
-  const bb = busboy({headers: req.headers});
-  req.body = {};
-
-  // Capturar las partes que no son archivos y los guardo en req.body
-  bb.on('field', (key, val) => {
-    req.body[key] = val;
-  });
-
-  // Capturar las partes que sí son archivos
-  bb.on('file',(key, stream) => {
-    const cloud = cloudinary.uploader.upload_stream(
-      { upload_preset: 'GCN-Avatar' },
-      (err, res) => {
-        if (err) throw err;
-
-        req.body[key] = res?.secure_url;
-        next();
-      }
-    );
-
-    stream.on('data', (data) => {
-      cloud.write(data);
+export const formData = (preset: string) => {
+  return (
+    req: Request,
+    res: Response, 
+    next: NextFunction
+  ) => {
+    const bb = busboy({headers: req.headers});
+    req.body = {};
+    
+    // Capturar las partes que no son archivos y los guardo en req.body
+    bb.on('field', (key, val) => {
+      req.body[key] = val;
     });
-
-    stream.on('end', () => {
-      cloud.end();
-    });
-  });
-
-  bb.on('finish', () => {
-  });
-
-  req.pipe(bb);
-}
+    
+    // Capturar las partes que sí son archivos
+    bb.on('file',(key, stream) => {
+      console.log(preset);
+      const cloud = cloudinary.uploader.upload_stream(
+        { upload_preset: preset },
+        (err, res) => {
+          if (err) throw err;
+          
+          req.body[key] = res?.secure_url;
+          next();
+        }
+        );
+        
+        stream.on('data', (data) => {
+          cloud.write(data);
+        });
+        
+        stream.on('end', () => {
+          cloud.end();
+        });
+      });
+      
+      bb.on('finish', () => {
+      });
+      
+      req.pipe(bb);
+    } 
+  }
+      
