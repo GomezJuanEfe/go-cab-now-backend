@@ -11,20 +11,22 @@ datasource db {
 }
 
 model User {
-  id         String   @id @default(cuid())
-  email      String   @unique
-  first_name String
-  last_name  String
-  password   String
-  role       Role     @default(USER)
-  address    String?
-  phone      String?
-  avatar     String?
-  car        Cars?
-  is_active  Boolean  @default(true)
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-  Trips      Trips[]
+  id          String    @id @default(cuid())
+  email       String    @unique
+  first_name  String
+  last_name   String
+  password    String
+  role        Role      @default(USER)
+  address     String?
+  phone       String?
+  avatar      String?
+  car         Cars?
+  reset_token String?   @unique
+  token_exp   DateTime?
+  is_active   Boolean   @default(false)
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  Trips       Trips[]
 }
 
 model Cars {

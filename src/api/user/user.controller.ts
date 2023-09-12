@@ -11,6 +11,9 @@ import {
 } from './user.service';
 import { AuthRequest } from '../../auth/auth.types';
 import { User } from './user.types';
+import { sendMailSendGrid } from '../../config/sendGrid';
+
+import { verifyAccountEmail } from '../../utils/emailSendGrid';
 
 export async function getAllUserHandler(req: AuthRequest, res: Response) {
   try {
@@ -37,7 +40,9 @@ export async function createUserHandler(req: Request, res: Response) {
       avatar: user.avatar,
     }
 
-    res.status(201).json({ message: 'User has been created successfully', profile });
+    sendMailSendGrid(verifyAccountEmail(user));
+
+    res.status(201).json({ message: 'User registered successfully, please verify your account', profile });
   } catch ({ message }: any) {
 
     res.status(400).json({ message })
