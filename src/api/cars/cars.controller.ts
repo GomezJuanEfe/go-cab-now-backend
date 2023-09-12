@@ -64,36 +64,6 @@ export async function handleCreateCarImage (req: AuthRequest, res: Response) {
   }
 }
 
-export async function handleUpdateCarImage (req: AuthRequest, res: Response) {
-
-  try {
-    console.log(req.body);
-    const { id } = req.body;
-    const car = await getCarById(id) as Cars
-
-    const carUpdate = await updateCar(req.body, car.id)
-
-    const dataUpdate = { 
-      id: carUpdate.id,
-      car_name: carUpdate.car_name,
-      type: carUpdate.type,
-      img: carUpdate.img,
-      seats: carUpdate.seats,
-      luggage: parseInt(carUpdate.luggage, 10),
-      air_conditioner: carUpdate.air_conditioner,
-      transmition: carUpdate.transmition,
-      fare_km: parseInt(carUpdate.fare_km, 10),
-      driver_id: carUpdate.driver_id,
-      created_at: carUpdate.created_at,
-      updated_at: carUpdate.updated_at
-    }
-
-    res.status(200).json({ message: 'Image was updated sucessfully', dataUpdate})
-  } catch ({ message }: any) {
-    res.status(400).json({message: 'There was an error updated image', error: message})
-  }
-}
-
 
 export const createCarHandler = async (req: AuthRequest, res: Response) => {
   try {

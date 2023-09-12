@@ -82,6 +82,20 @@ export async function deleteCar(id: string) {
 
 export async function updateCar(data: any, id: string) {
   try {
+
+    if (typeof data.luggage === 'string') {
+      data.luggage = parseInt(data.luggage, 10);
+    }
+    if (typeof data.seats === 'string') {
+      data.seats = parseInt(data.seats, 10);
+    }
+    if (typeof data.air_conditioner === 'string') {
+      data.air_conditioner = data.air_conditioner.toLowerCase() === 'true';
+    }
+    if (typeof data.fare_km === 'string') {
+      data.fare_km = parseInt(data.fare_km, 10);
+    }
+
     const car = await prisma.cars.update({
       where: {
         id,
