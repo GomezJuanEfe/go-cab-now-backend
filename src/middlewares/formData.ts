@@ -15,7 +15,8 @@ export const formData = (preset: string) => {
     req: Request,
     res: Response, 
     next: NextFunction
-  ) => {
+    ) => {
+      
     const bb = busboy({headers: req.headers});
     req.body = {};
     
@@ -24,13 +25,13 @@ export const formData = (preset: string) => {
       req.body[key] = val;
     });
     
+    
     // Capturar las partes que sí son archivos
     bb.on('file',(key, stream) => {
-      console.log(preset);
       const cloud = cloudinary.uploader.upload_stream(
         { upload_preset: preset },
         (err, res) => {
-          if (err) throw err;
+          if (err) console.log(err);
           
           req.body[key] = res?.secure_url;
           next();
