@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import { AuthRequest } from '../../auth/auth.types';
 import { User } from '../user/user.types'
+import { Cars } from '@prisma/client';
 
 import { 
   getAllCars,
@@ -45,16 +46,16 @@ export async function getCarHandler(req: AuthRequest, res: Response) {
   }  
 }
 
-
 export const createCarHandler = async (req: AuthRequest, res: Response) => {
   try {
-    const { driver_email, car_info } = req.body;
-    const { id }: any = await getUserByEmail(driver_email)
+    const { driver_id: email } = req.body;
+    const { id }: any = await getUserByEmail(email)
 
     const data = {
-      ...car_info,
+      ...req.body,
       driver_id: id,
     };
+
     const carCreated = await createCar(data)
 
     res.status(201).json({message: "Car was created successfully", carCreated})
@@ -77,7 +78,7 @@ export async function deleteCarHandler(req: Request, res:Response){
      
     return res.json({message:"Car deleted successfully", data: car})
   } catch ({message }: any) {
-    res.status(400).json({ message });
+    res.status(400).json({ message: "Cars wasn't delete"});
   }
 }
 
@@ -112,7 +113,7 @@ export async function updateCarHandler(req: Request, res: Response) {
     res.status(201).json({message: "Information was updated sucessfully", data});
     
   } catch ({ message }: any) {
-      res.status(400).json({ message });
+      res.status(400).json({ message: "Information wasn't update" });
   }
 }
 
