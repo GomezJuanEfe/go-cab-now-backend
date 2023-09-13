@@ -67,8 +67,8 @@ export async function handleCreateCarImage (req: AuthRequest, res: Response) {
 
 export const createCarHandler = async (req: AuthRequest, res: Response) => {
   try {
-    const { driver_id } = req.body;
-    const { id }: any = await getUserByEmail(driver_id)
+    const { driver_id: email } = req.body;
+    const { id }: any = await getUserByEmail(email)
 
     const data = {
       ...req.body,
