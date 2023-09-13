@@ -46,25 +46,6 @@ export async function getCarHandler(req: AuthRequest, res: Response) {
   }  
 }
 
-export async function handleCreateCarImage (req: AuthRequest, res: Response) {
-  try {
-    const { driver_email, car_info} = req.body;
-    const { id }: any = await getUserByEmail(driver_email)
-
-    const data = {
-      ...car_info,
-      driver_id: id,
-    };
-
-    const { img } = await createCar(data)
-
-    res.status(202).json({ message: 'Image was upload sucessfully', img })
-  } catch ({ message }: any) {
-    res.status(400).json({message: 'There was an error uploading image', error: message})
-  }
-}
-
-
 export const createCarHandler = async (req: AuthRequest, res: Response) => {
   try {
     const { driver_id: email } = req.body;
