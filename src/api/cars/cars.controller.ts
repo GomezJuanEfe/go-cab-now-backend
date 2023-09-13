@@ -67,7 +67,6 @@ export async function handleCreateCarImage (req: AuthRequest, res: Response) {
 
 export const createCarHandler = async (req: AuthRequest, res: Response) => {
   try {
-    console.log(req.body);
     const { driver_id } = req.body;
     const { id }: any = await getUserByEmail(driver_id)
 
@@ -75,7 +74,7 @@ export const createCarHandler = async (req: AuthRequest, res: Response) => {
       ...req.body,
       driver_id: id,
     };
-    console.log(data);
+
     const carCreated = await createCar(data)
 
     res.status(201).json({message: "Car was created successfully", carCreated})
