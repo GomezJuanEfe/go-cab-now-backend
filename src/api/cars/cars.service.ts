@@ -25,6 +25,20 @@ export async function getAllCars() {
 
 export async function createCar(input: Cars) {
   try {
+   
+    if (typeof input.seats === 'string') {
+      input.seats = parseInt(input.seats, 10);
+    }
+    if (typeof input.luggage === 'string') {
+      input.luggage = parseInt(input.luggage, 10);
+    }
+    if (typeof input.air_conditioner === 'string') {
+      input.air_conditioner = input.air_conditioner === 'true';
+    }
+    if (typeof input.fare_km === 'string') {
+      input.fare_km = parseInt(input.fare_km, 10);
+    }
+
     const car = await prisma.cars.create({
       data: input
     });

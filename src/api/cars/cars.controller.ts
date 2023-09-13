@@ -67,13 +67,15 @@ export async function handleCreateCarImage (req: AuthRequest, res: Response) {
 
 export const createCarHandler = async (req: AuthRequest, res: Response) => {
   try {
-    const { driver_email, car_info } = req.body;
-    const { id }: any = await getUserByEmail(driver_email)
+    console.log(req.body);
+    const { driver_id } = req.body;
+    const { id }: any = await getUserByEmail(driver_id)
 
     const data = {
-      ...car_info,
+      ...req.body,
       driver_id: id,
     };
+    console.log(data);
     const carCreated = await createCar(data)
 
     res.status(201).json({message: "Car was created successfully", carCreated})
@@ -96,7 +98,7 @@ export async function deleteCarHandler(req: Request, res:Response){
      
     return res.json({message:"Car deleted successfully", data: car})
   } catch ({message }: any) {
-    res.status(400).json({ message });
+    res.status(400).json({ message: "Cars wasn't delete"});
   }
 }
 
@@ -131,7 +133,7 @@ export async function updateCarHandler(req: Request, res: Response) {
     res.status(201).json({message: "Information was updated sucessfully", data});
     
   } catch ({ message }: any) {
-      res.status(400).json({ message });
+      res.status(400).json({ message: "Information wasn't update" });
   }
 }
 
