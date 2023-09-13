@@ -14,9 +14,13 @@ export async function loginHandler(req: Request, res: Response) {
       return res.status(401).send('Invalid credentials');
     }
 
+    if (!user.is_active) {
+      return res.status(400).send('User inactive. Verify your email first');
+    }
+
     // Compare password
     const isMatch = await comparePassword(password, user.password)
-    
+
     if(!isMatch) {
       return res.status(401).send('Invalid credentials');
     }
@@ -32,10 +36,9 @@ export async function loginHandler(req: Request, res: Response) {
 
 export async function activeAccountHandler(req: Request, res: Response) {
   try {
-    const { token } = req.params;
-    console.log("🚀 ~ file: local.controller.ts:49 ~ activeAccountHandler ~ token:", token)
+    const { token: tokenFromParams } = req.params;
 
-    const user = await getUserByResetToken(token);
+    const user = await getUserByResetToken(tokenFromParams);
 
     if (!user) {
       return res.status(404).json({ message: 'Invalid token'});
@@ -46,13 +49,16 @@ export async function activeAccountHandler(req: Request, res: Response) {
     }
 
     const data = {
-      ...user,
       is_active: true,
       reset_token: null,
       token_exp: null, 
     }
 
-    await updateUser(data, user.id);
+    const curretUser = await updateUser(data, user.id);
+
+    const { token, profile } = createAuthResponse(curretUser);
+
+    res.status(200).json({ token, profile });
   } catch ({ message }: any) {
     res.status(400).json({ message })
   }

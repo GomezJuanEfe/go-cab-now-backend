@@ -38,21 +38,21 @@ export async function getAllUser(id: string) {
 
 export async function createUser(input: User) {
   try {
-      const hashedPassword = await hashPassword(input.password);
-      const expiresIn = Date.now() + (60 * 60 * 24 * 1000);
-    
-      const data = {
-        ...input,
-        password: hashedPassword,
-        reset_token: createHashToken(input.email),
-        token_exp: new Date(expiresIn),
-      }
-    
-      const user = await prisma.user.create({
-        data
-      });
-    
-      return user;
+    const hashedPassword = await hashPassword(input.password);
+    const expiresIn = Date.now() + (60 * 60 * 24 * 1000);
+
+    const data = {
+      ...input,
+      password: hashedPassword,
+      reset_token: createHashToken(input.email),
+      token_exp: new Date(expiresIn),
+    }
+
+    const user = await prisma.user.create({
+      data
+    });
+
+    return user;
   } catch (error: any) {
     throw error;
   }
