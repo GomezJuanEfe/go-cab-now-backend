@@ -9,6 +9,9 @@ import { updateTrip } from './trips.service';
 import { deleteTrip } from './trips.service';
 import { getTripsByCarId } from './trips.service';
 import { getCarByDriverId } from '../cars/cars.service';
+import { sendMailSendGrid } from '../../config/sendGrid';
+import { confirmPaymentEmail } from '../../utils/emailSendGrid';
+import { Trip } from './trips.types';
 
 
 export async function createTripHandler(req: AuthRequest, res: Response) {
@@ -18,7 +21,9 @@ export async function createTripHandler(req: AuthRequest, res: Response) {
       ...req.body,
       user_id
     };
-    const trip = await createTrip(data);
+    const trip = await createTrip(data) as Trip;
+
+    sendMailSendGrid(confirmPaymentEmail(trip));
 
     res.status(201).json({ message: 'Trip has been created successfully', trip });
   } catch({ message }: any){

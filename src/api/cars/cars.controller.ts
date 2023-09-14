@@ -82,7 +82,7 @@ export async function deleteCarHandler(req: Request, res:Response){
   }
 }
 
-export async function updateCarHandler(req: Request, res: Response) {
+export async function updateCarHandler(req: AuthRequest, res: Response) {
   try {
     const { id } = req.params;
     const car = await getCarById(id);
@@ -92,7 +92,6 @@ export async function updateCarHandler(req: Request, res: Response) {
         message: `Car not found`,
       });
     }
-  
     const carUpdated = await updateCar(req.body, car.id);
 
     const data = {
