@@ -13,9 +13,19 @@ cloudinary.config({
 // Middleware
 export const formData = (preset: string) => {
   return (req: AuthRequest, res: Response, next: NextFunction) => {
+    let uploadingFile = false
+    let countFiles = 0
+
     const bb = busboy({headers: req.headers});
     req.body = {};
-    
+
+    const done = () => {
+    if(uploadingFile) return
+    if(countFiles > 0) return
+
+    next()
+  }
+
     // Capturar las partes que no son archivos y los guardo en req.body
     bb.on('field', (key, val) => {
       req.body[key] = val;
@@ -24,13 +34,17 @@ export const formData = (preset: string) => {
     
     // Capturar las partes que sí son archivos
     bb.on('file',(key, stream) => {
+      uploadingFile = true
+      countFiles++
       const cloud = cloudinary.uploader.upload_stream(
         { upload_preset: preset },
         (err, res) => {
-          if (err) console.log(err);
-          
+          if (err) throw err;
+
           req.body[key] = res?.secure_url;
-          next();
+          uploadingFile = false
+          countFiles--
+          done();
         }
         );
         
@@ -44,10 +58,9 @@ export const formData = (preset: string) => {
       });
       
       bb.on('finish', () => {
-        next()
+        done();
       });
       
       req.pipe(bb);
     } 
   }
-      
