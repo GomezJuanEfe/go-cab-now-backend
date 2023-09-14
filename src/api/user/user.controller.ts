@@ -42,7 +42,7 @@ export async function createUserHandler(req: Request, res: Response) {
 
     sendMailSendGrid(verifyAccountEmail(user));
 
-    res.status(201).json({ message: 'User has been created successfully', profile });
+    res.status(201).json({ message: 'User registered successfully, please verify your account', profile });
   } catch ({ message }: any) {
 
     res.status(400).json({ message })

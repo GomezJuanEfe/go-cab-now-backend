@@ -1,15 +1,17 @@
 import { Router } from 'express'
 
-import { loginHandler } from './local.controller'
+import { loginHandler, activeAccountHandler } from './local.controller'
 
 const route = Router()
 
-//login -> POST /auth/local/login
+// Login -> POST /auth/local/login
 route.post('/login', loginHandler)
+
+// Active account -> GET /auth/local/activate-account/:token
+route.get('/activate-account/:token', activeAccountHandler)
 
 //change password
 //reset password
-//active account
 //lougout
 
 export default route
