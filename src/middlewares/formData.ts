@@ -1,6 +1,7 @@
 import busboy from "busboy";
 import { v2 as cloudinary } from "cloudinary";
 import { Response, Request, NextFunction } from "express";
+import { AuthRequest } from "../auth/auth.types";
 
 // Settings
 cloudinary.config({
@@ -11,12 +12,7 @@ cloudinary.config({
 
 // Middleware
 export const formData = (preset: string) => {
-  return (
-    req: Request,
-    res: Response, 
-    next: NextFunction
-    ) => {
-      
+  return (req: AuthRequest, res: Response, next: NextFunction) => {
     const bb = busboy({headers: req.headers});
     req.body = {};
     
@@ -48,6 +44,7 @@ export const formData = (preset: string) => {
       });
       
       bb.on('finish', () => {
+        next()
       });
       
       req.pipe(bb);
