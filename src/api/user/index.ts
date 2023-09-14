@@ -20,7 +20,7 @@ const router = Router();
 // /api/users -> POST
 router.post('/', createUserHandler);
 // /api/users/upload-img -> POST
-router.post('/upload-img', isAuthenticated, formData, handleUploadImage )
+router.post('/upload-img', isAuthenticated, formData('GCN-Avatar'), handleUploadImage )
 
 // READ
 // /api/users -> GET
