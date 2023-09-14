@@ -54,9 +54,9 @@ export async function activeAccountHandler(req: Request, res: Response) {
       token_exp: null, 
     }
 
-    const curretUser = await updateUser(data, user.id);
+    const currentUser = await updateUser(data, user.id);
 
-    const { token, profile } = createAuthResponse(curretUser);
+    const { token, profile } = createAuthResponse(currentUser);
 
     res.status(200).json({ token, profile });
   } catch ({ message }: any) {
