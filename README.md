@@ -1,4 +1,4 @@
-# Backend Top-v23 - Make It Real 💻
+# Backend App Go Cab Now - Make It Real 💻
 
 Main base of the services used within the Make It Real platforms
 
@@ -14,13 +14,19 @@ Main base of the services used within the Make It Real platforms
 
 ## Express Router and Routes
 
-| Route            | HTTP Verb | Route Middleware | Description           |
-| ---------------- | --------- | ---------------- | --------------------- |
-| /api/healthcheck | GET       |                  | Show a simple message |
-| /api/users       | GET       |                  | Get list of users     |
-| /api/users       | POST      |                  | Creates a new users   |
-| /api/users/:id   | GET       |                  | Get a single users    |
-| /api/users/:id   | DELETE    |                  | Deletes a user        |
+| Route                        | HTTP Verb | Route Middleware          | Description                      |
+| ---------------------------- | --------- | ------------------------- | -------------------------------- |
+| /api/healthcheck             | GET       |                           | Show a simple message            |
+| /api/users                   | GET       | isAuthenticated, hasRole  | Get list of all users            | 
+| /api/users/single            | GET       | isAuthenticated           | Get a single users               |
+| /api/users/driver-without-car| GET       | isAuthenticated, hasRole  | Get list of drivers without cars |
+| /api/users                   | POST      |                           | Creates a new user               |
+| /api/users/upload-img        | POST      |isAuthenticated, formData  | Upload new profile image         |
+| /api/users/single            | PATCH     | isAuthenticated           | Update a single users            |
+| /api/users/single            | PATCH     | isAuthenticated, hasRole  | Update user by admin role        |
+| /api/users/single            | DELETE    | isAuthenticated           | Deletes a user                   |
+| /api/users/:email            | DELETE    | isAuthenticated, hasRole  | Deletes an user by admin role    |
+
 
 ## Usage
 
@@ -41,12 +47,12 @@ Response:
 
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImNyaXN0aWFuLm1vcmVub0BtYWtlaXRyZWFsLmNhbXAiLCJpYXQiOjE2NjEyMDgwODJ9.kPdMoVUEnyX36vi606Mc1C66yWLKKAB37GLbF0gzhBo",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsbTB4MHpleDAwMDB1bHZodjZtZXVhbTkiLCJlbWFpbCI6ImF2QHRlc3QuY29tIiwiaWF0IjoxNjk0ODMyNjcxLCJleHAiOjE2OTQ5MTkwNzF9.fpD5shIH6Wuh-2G3P88MWVyEuYo_33zt4q_f3i1NmJI",
   "profile": {
     "id": "62fd77a4d25acc4a4e5df3d1",
-    "firstName": "JHON",
-    "lastName": "Doe",
-    "email": "jd@test.com"
+    "firstName": "Pepito",
+    "lastName": "Perez",
+    "email": "pp@test.com"
   }
 }
 ```
@@ -57,9 +63,9 @@ Request Body:
 
 ```json
 {
-  "name": "jhon doe",
-  "email": "jd@test.com",
-  "password": "123456"
+  "name": "Pepito Perez",
+  "email": "pp@test.com",
+  "password": "1234"
 }
 ```
 
@@ -67,8 +73,8 @@ Response:
 
 ```json
 {
-  "name": "jhon doe",
-  "email": "jd@test.com",
+  "name": "Pepito Perez",
+  "email": "pp@test.com",
   "role": "USER"
 }
 ```
