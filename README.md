@@ -84,9 +84,9 @@ This project uses Prisma as the ORM (Object-Relational Mapping) tool to manage t
 
 **1. Install Prisma**
 
-  `npm install -g prisma` 
+  npm install -g prisma
   or
-  `yarn global add prisma`
+  yarn global add prisma
 
 **2. Install Prisma**
 
@@ -98,15 +98,15 @@ This project uses Prisma as the ORM (Object-Relational Mapping) tool to manage t
 
   **Create a new migration**
 
-    `npx prisma migrate dev`
+    npx prisma migrate dev
     or 
-    `npx prisma db push`
+    npx prisma db push
 
 **4. Create Seeders**
 
   `Seed the database with initial data`
 
-    `npx prisma db seed`
+    npx prisma db seed
 
 
 ### Authentication **user** `/auth/local/login`
