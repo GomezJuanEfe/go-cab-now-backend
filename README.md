@@ -82,25 +82,29 @@ The use of endpoints is very simple, previously you could see a table of endpoin
 
 This project uses Prisma as the ORM (Object-Relational Mapping) tool to manage the database. Follow these steps to set up and migrate the database:
 
-1. **Install Prisma**
+**1. Install Prisma**
 
-  `npm install -g prisma` or `yarn global add prisma`
+  `npm install -g prisma` 
+  or
+  `yarn global add prisma`
 
-2. **Install Prisma**
+**2. Install Prisma**
 
   **Database Configuration:**
 
     **DATABASE_URL**=postgres://db_user:0O8hOcIbzma5JQ99glPBRGP9fSrVE8W9@dpg-cjdfdp2vvtos73au67ig-a.ohio-postgres.render.com/db_cars_test
 
-3. **Database Migration**
+**3. Database Migration**
 
-  # Create a new migration
+  **Create a new migration**
 
-    `npx prisma migrate dev` or `npx prisma db push`
+    `npx prisma migrate dev`
+    or 
+    `npx prisma db push`
 
-4. **Create Seeders**
+**4. Create Seeders**
 
-  # Seed the database with initial data
+  `Seed the database with initial data`
 
     `npx prisma db seed`
 
