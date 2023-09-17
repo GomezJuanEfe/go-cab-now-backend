@@ -18,6 +18,12 @@ Main base of the services used within the Go Cab Now App
 
    2. Run npm install or yarn to install server dependencies.
 
+## 🛠️ Local development
+
+    npm run dev
+    Or you can use
+    $ yarn dev
+
 
 ## Express Router and Routes
 
@@ -61,10 +67,10 @@ Main base of the services used within the Go Cab Now App
 
 ## Payment Routes
 
-| Route                       | HTTP Verb | Route Middleware| Description          |
-| ----------------------------| --------- | --------------- | ---------------------|
-| /api/payment/               | GET       |                 | Get a single payment | 
-| /api/payment/create-payment | POST      |                 | Creates a payment    |
+| Route                       | HTTP Verb | Route Middleware| Description              |
+| ----------------------------| --------- | --------------- | -------------------------|
+| /api/payment/               | POST      |                 | Create payment in stripe | 
+| /api/payment/create-payment | POST      |                 | Creates a payment        |
 
 ## Usage
 
@@ -78,62 +84,40 @@ This project uses Prisma as the ORM (Object-Relational Mapping) tool to manage t
 
 1. **Install Prisma**
 
-`npm install -g prisma`
-# or
-``yarn global add prisma`
+  `npm install -g prisma`
+  # or
+  ``yarn global add prisma`
 
 2. **Install Prisma**
 
-Database Configuration:
+  **Database Configuration:**
 
-**DATABASE_URL**=postgres://db_user:0O8hOcIbzma5JQ99glPBRGP9fSrVE8W9@dpg-cjdfdp2vvtos73au67ig-a.ohio-postgres.render.com/db_cars_test
+    **DATABASE_URL**=postgres://db_user:0O8hOcIbzma5JQ99glPBRGP9fSrVE8W9@dpg-cjdfdp2vvtos73au67ig-a.ohio-postgres.render.com/db_cars_test
 
-3. **Prisma Schema**
+3. **Database Migration**
 
-generator client {
-  provider = "prisma-client-js"
-}
+  # Create a new migration
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
+    `npx prisma migrate dev`
+    Or
+    `npx prisma db push`
 
-model User {
-  ...User
-}
+4. **Create Seeders**
 
-model Cars {
-  ...Cars
-}
-
-model Trips {
-  ...Trips
-}
-
-model Payment {
-  ...Payment
-}
-
-4. **Database Migration**
-
-  `npx prisma db push`
-
-5. **Create Seeders**
-
-  Create seeders
+  # Seed the database with initial data
 
     `npx prisma db seed`
 
+
 ### Authentication **user** `/auth/local/login`
 
-This backend application uses JWT (JSON Web Tokens) for authentication. Users can obtain an access token by providing valid credentials (usually email and password)
+This backend application uses JWT (JSON Web Tokens) for authentication. Users can obtain an access token by providing valid credentials (email and password)
 
 Request Body:
 
 ```json
 {
-  "email": "jd@test.com",
+  "email": "pp@test.com",
   "password": "1234"
 }
 ```
@@ -142,8 +126,7 @@ Response:
 
 ```json
 {
-  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsbTB4MHpleDAwMDB1bHZodjZtZXVhbTkiLCJlbWFpbCI6Im
-  F2QHRlc3QuY29tIiwiaWF0IjoxNjk0ODMyNjcxLCJleHAiOjE2OTQ5MTkwNzF9.fpD5shIH6Wuh-2G3P88MWVyEuYo_33zt4q_f3i1NmJI",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImNsbTB4MHpleDAwMDB1bHZodjZtZXVhbTkiLCJlbWFpbCI6ImF2QHRlc3QuY29tIiwiaWF0IjoxNjk0ODMyNjcxLCJleHAiOjE2OTQ5MTkwNzF9.fpD5shIH6Wuh-2G3P88MWVyEuYo_33zt4q_f3i1NmJI",
   "profile": {
     "id": "62fd77a4d25acc4a4e5df3d1",
     "firstName": "Pepito",
@@ -175,8 +158,6 @@ Response:
 }
 ```
 
-
-
 ### Developing 🛠️
 
 1. Clone the repository
@@ -197,8 +178,8 @@ This project is licensed under the [MIT](LICENSE).
 
 ## Authors 👥✒️
 
-Juan Felipe Gomez - (https://github.com/GomezJuanEfe)
-Andrea Vargas - (https://github.com/PVARGASM1)
-Daniel Hincape Vargas - (https://github.com/danielhincapievargas)
+- [Juan Felipe Gomez] - (https://github.com/GomezJuanEfe)
+- [Andrea Vargas] - (https://github.com/PVARGASM1)
+- [Daniel Hincape Vargas] - (https://github.com/danielhincapievargas)
 
 
