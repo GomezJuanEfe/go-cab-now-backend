@@ -84,9 +84,7 @@ This project uses Prisma as the ORM (Object-Relational Mapping) tool to manage t
 
 1. **Install Prisma**
 
-  `npm install -g prisma`
-  # or
-  ``yarn global add prisma`
+  `npm install -g prisma` or `yarn global add prisma`
 
 2. **Install Prisma**
 
@@ -98,9 +96,7 @@ This project uses Prisma as the ORM (Object-Relational Mapping) tool to manage t
 
   # Create a new migration
 
-    `npx prisma migrate dev`
-    Or
-    `npx prisma db push`
+    `npx prisma migrate dev` or `npx prisma db push`
 
 4. **Create Seeders**
 
@@ -178,8 +174,8 @@ This project is licensed under the [MIT](LICENSE).
 
 ## Authors 👥✒️
 
-- [Juan Felipe Gomez] - (https://github.com/GomezJuanEfe)
-- [Andrea Vargas] - (https://github.com/PVARGASM1)
-- [Daniel Hincape Vargas] - (https://github.com/danielhincapievargas)
+- Juan Felipe Gomez - (https://github.com/GomezJuanEfe)
+- Andrea Vargas - (https://github.com/PVARGASM1)
+- Daniel Hincape Vargas - (https://github.com/danielhincapievargas)
 
 
