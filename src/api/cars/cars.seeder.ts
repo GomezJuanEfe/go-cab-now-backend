@@ -11,7 +11,7 @@ const carsInfo: any = [
     luggage: 2,
     air_conditioner: true,
     transmition: 'AUTOMATIC',
-    fare_km: 2500,
+    fare_km: 1,
     driver_id: 'cllzw3v58000auli6da0ozzoj',
   },
   {
@@ -22,7 +22,7 @@ const carsInfo: any = [
     luggage: 2,
     air_conditioner: true,
     transmition: 'AUTOMATIC',
-    fare_km: 2500,
+    fare_km: 2,
     driver_id: 'cllzw3v58000duli6izqk40ue',
   },
   {
@@ -33,7 +33,7 @@ const carsInfo: any = [
     luggage: 2,
     air_conditioner: false,
     transmition: 'MANUAL',
-    fare_km: 2500,
+    fare_km: 3,
     driver_id: 'cllzw3v580015uli6p6lgq9m0',
   },
   {
@@ -44,7 +44,7 @@ const carsInfo: any = [
     luggage: 2,
     air_conditioner: true,
     transmition: 'AUTOMATIC',
-    fare_km: 2500,
+    fare_km: 1,
     driver_id: 'cllzw3v58000vuli6k3dcr3lj',
   },
   {
@@ -55,7 +55,7 @@ const carsInfo: any = [
     luggage: 4,
     air_conditioner: true,
     transmition: 'AUTOMATIC',
-    fare_km: 2500,
+    fare_km: 2,
     driver_id: 'cllzw3v570002uli6xix62s0i',
   },
   {
@@ -66,7 +66,7 @@ const carsInfo: any = [
     luggage: 4,
     air_conditioner: true,
     transmition: 'AUTOMATIC',
-    fare_km: 2500,
+    fare_km: 3,
     driver_id: 'cllzw3v580012uli64qij3ava',
   },
   {
@@ -77,7 +77,7 @@ const carsInfo: any = [
     luggage: 2,
     air_conditioner: true,
     transmition: 'AUTOMATIC',
-    fare_km: 2500,
+    fare_km: 1,
     driver_id: 'cllzw3v580014uli6bh73yfty',
   },
   {
@@ -88,7 +88,7 @@ const carsInfo: any = [
     luggage: 2,
     air_conditioner: true,
     transmition: 'AUTOMATIC',
-    fare_km: 2500,
+    fare_km: 2,
     driver_id: 'cllzw3v58000zuli6ed3ogd3n',
   },
   {
@@ -99,7 +99,7 @@ const carsInfo: any = [
     luggage: 2,
     air_conditioner: true,
     transmition: 'AUTOMATIC',
-    fare_km: 2500,
+    fare_km: 3,
     driver_id: 'cllzw3v580004uli66m7fsq8a',
   },
   {
@@ -110,7 +110,7 @@ const carsInfo: any = [
     luggage: 1,
     air_conditioner: true,
     transmition: 'MANUAL',
-    fare_km: 2500,
+    fare_km: 1,
     driver_id: 'cllzw3v58000fuli6mepi4r21',
   },
   {
@@ -121,7 +121,7 @@ const carsInfo: any = [
     luggage: 1,
     air_conditioner: true,
     transmition: 'AUTOMATIC',
-    fare_km: 2500,
+    fare_km: 2,
     driver_id: 'cllzw3v580005uli6yr87gl8g',
   },
   {
@@ -132,7 +132,7 @@ const carsInfo: any = [
     luggage: 4,
     air_conditioner: true,
     transmition: 'AUTOMATIC',
-    fare_km: 2500,
+    fare_km: 3,
     driver_id: 'cllzw3v580009uli62i5um5o2',
   },
 ]
