@@ -98,13 +98,8 @@ This project uses Prisma as the ORM (Object-Relational Mapping) tool to manage t
   or
   yarn global add prisma
 
-**2. Install Prisma**
 
-  **Database Configuration:**
-
-    **DATABASE_URL**=postgres://db_user:0O8hOcIbzma5JQ99glPBRGP9fSrVE8W9@dpg-cjdfdp2vvtos73au67ig-a.ohio-postgres.render.com/test_db_cars
-
-**3. Database Migration**
+**2. Database Migration**
 
   **Create a new migration**
 
