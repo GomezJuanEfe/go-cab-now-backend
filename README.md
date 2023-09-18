@@ -27,6 +27,16 @@ Main base of the services used within the Go Cab Now App
 
 ## Express Router and Routes
 
+## Auth Local
+
+| Route                                            | HTTP Verb | Description                      |
+| ------------------------------------------------ | ----------| -------------------------------- |
+| /auth/local/activate-account/:token              | GET       | Active account, for new user     |
+| /auth/local/generate-token-forgot-password/:email| GET       | Get token for forgot password    | 
+| /auth/local/check-token-forgot-password/:token   | GET       | Verify token to forgot password  |
+| /auth/local/reset-password/:token                | GET       | Reset password user created      |
+| /auth/local/login                                | POST      | User login                       |
+
 ## User Routes
 
 | Route                        | HTTP Verb | Route Middleware          | Description                      |
@@ -38,8 +48,8 @@ Main base of the services used within the Go Cab Now App
 | /api/users                   | POST      |                           | Creates a new user               |
 | /api/users/upload-img        | POST      | isAuthenticated, formData | Upload new profile image         |
 | /api/users/single            | PATCH     | isAuthenticated           | Update a single users            |
-| /api/users/single            | PATCH     | isAuthenticated, hasRole  | Update user by admin role        |
-| /api/users/single            | DELETE    | isAuthenticated           | Deletes a user                   |
+| /api/users                   | PATCH     | isAuthenticated, hasRole  | Update user by admin role        |
+| /api/users                   | DELETE    | isAuthenticated           | Deletes a user                   |
 | /api/users/:email            | DELETE    | isAuthenticated, hasRole  | Deletes an user by admin role    |
 
 ## Trip Routes
@@ -92,7 +102,7 @@ This project uses Prisma as the ORM (Object-Relational Mapping) tool to manage t
 
   **Database Configuration:**
 
-    **DATABASE_URL**=postgres://db_user:0O8hOcIbzma5JQ99glPBRGP9fSrVE8W9@dpg-cjdfdp2vvtos73au67ig-a.ohio-postgres.render.com/db_cars_test
+    **DATABASE_URL**=postgres://db_user:0O8hOcIbzma5JQ99glPBRGP9fSrVE8W9@dpg-cjdfdp2vvtos73au67ig-a.ohio-postgres.render.com/test_db_cars
 
 **3. Database Migration**
 
