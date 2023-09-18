@@ -20,6 +20,22 @@ export const verifyAccountEmail = (user: User) => {
   return emailData;
 }
 
+export const resetPassWordEmail = (user: User) => {
+
+  const emailData = {
+    from: "No reply <go.cab.now.123@gmail.com>",
+    to: user.email,
+    subject: "Reset your password",
+    templateId: "d-d8d99b3300604fd68c2241f05cb3299e",
+    dynamic_template_data: {
+      first_name: user.first_name,
+      redirect_url: `${redirectUrl}verify-forgot-password/${user.reset_token}`
+    }
+  }
+
+  return emailData;
+}
+
 export const confirmPaymentEmail = (trip: Trip) => {
 
   const totalPrice = trip.total as number;
