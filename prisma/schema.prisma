@@ -21,9 +21,9 @@ model User {
   phone       String?
   avatar      String?
   car         Cars?
-  reset_token String?
+  reset_token String?   @unique
   token_exp   DateTime?
-  is_active   Boolean   @default(true)
+  is_active   Boolean   @default(false)
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   Trips       Trips[]

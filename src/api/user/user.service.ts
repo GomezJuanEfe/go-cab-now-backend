@@ -38,21 +38,21 @@ export async function getAllUser(id: string) {
 
 export async function createUser(input: User) {
   try {
-      const hashedPassword = await hashPassword(input.password);
-      const expiresIn = Date.now() + (60 * 60 * 24 * 1000);
-    
-      const data = {
-        ...input,
-        password: hashedPassword,
-        reset_token: createHashToken(input.email),
-        token_exp: new Date(expiresIn),
-      }
-    
-      const user = await prisma.user.create({
-        data
-      });
-    
-      return user;
+    const hashedPassword = await hashPassword(input.password);
+    const expiresIn = Date.now() + (60 * 60 * 24 * 1000);
+
+    const data = {
+      ...input,
+      password: hashedPassword,
+      reset_token: createHashToken(input.email),
+      token_exp: new Date(expiresIn),
+    }
+
+    const user = await prisma.user.create({
+      data
+    });
+
+    return user;
   } catch (error: any) {
     throw error;
   }
@@ -100,13 +100,23 @@ export async function deleteUser(id: string) {
   }
 }
 
-export async function updateUser(data: any, id: string) {
+export async function updateUser(data: any, id: string, forgot_pass?: boolean) {
   try {
     const password = data.password;
     if (password) {
       const hashedPassword = await hashPassword(password);
       data.password = hashedPassword;
     }
+
+    const expiresIn = Date.now() + (60 * 60 * 24 * 1000);
+
+    if (forgot_pass) {
+      data = {
+        reset_token: createHashToken(data.email),
+        token_exp: new Date(expiresIn),
+      }
+    }
+
     const user = await prisma.user.update({
       where: {
         id,
@@ -143,4 +153,14 @@ export async function getDriversWithoutCar () {
   } catch (error: any) {
     throw error;
   }
+}
+
+export async function getUserByResetToken(resetToken: string) {
+  const user = await prisma.user.findUnique({
+    where: {
+      reset_token: resetToken
+    }
+  });
+
+  return user;
 }
