@@ -29,13 +29,13 @@ Main base of the services used within the Go Cab Now App
 
 ## Auth Local
 
-| Route                                            | HTTP Verb | Description                      |
-| ------------------------------------------------ | ----------| -------------------------------- |
-| /auth/local/activate-account/:token              | GET       | Active account, for new user     |
-| /auth/local/generate-token-forgot-password/:email| GET       | Get token for forgot password    | 
-| /auth/local/check-token-forgot-password/:token   | GET       | Verify token to forgot password  |
-| /auth/local/reset-password/:token                | GET       | Reset password user created      |
-| /auth/local/login                                | POST      | User login                       |
+| Route                                            | HTTP Verb | Description                          |
+| ------------------------------------------------ | ----------| ------------------------------------ |
+| /auth/local/activate-account/:token              | GET       | Active account, for new user         |
+| /auth/local/generate-token-forgot-password/:email| GET       | Get token to recover the password    | 
+| /auth/local/check-token-forgot-password/:token   | GET       | Verify token to recover the password |
+| /auth/local/reset-password/:token                | GET       | To reset password for an created user|
+| /auth/local/login                                | POST      | User login                           |
 
 ## User Routes
 
